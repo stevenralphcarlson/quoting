@@ -1,0 +1,72 @@
+<%- include("header") -%>
+
+<script type="text/javascript" src="http://www.carqueryapi.com/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.carqueryapi.com/js/carquery.0.3.4.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var carquery = new CarQuery();
+        carquery.init();
+        carquery.initYearMakeModelTrim('car-years', 'car-makes', 'car-models', 'car-model-trims');
+
+        //Set onclick function for the US filter checkbox and show data button
+        $('#cq-sold-in-us').click(function () { carquery.setFilters({ sold_in_us: this.checked }); });
+        $('#cq-show-data').click(function () { carquery.populateCarData('car-model-data'); });
+
+        console.log(carquery);
+
+    });
+</script>
+
+<div class="container">
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="pricing-header display-4">Get a Quote</h1>
+        <p>Fill out the form below to get your vehicle transportation quote today.</p>
+    </div>
+    <div class="flex-container">
+        <form action="/quote" method="POST" id="theForm">
+            <div class="row destinations-row">
+                <div class="col col-12 col-md-6">
+                    <label for="origins">Origin</label>
+                    <input class="form-control" name="origins" id="origins" type="text" placeholder="Zip or City,St"
+                        required>
+                </div>
+                <div class="col col-12 col-md-6">
+                    <label for="destinations">Destination</label>
+                    <input class="form-control" name="destinations" id="destinations" type="text"
+                        placeholder="Zip or City,St" required>
+                </div>
+            </div>
+
+            <div class="row vehicle-row">
+                <div class="col col-12 col-md-3">
+                    <label for="car-years">Year</label>
+                    <select class="custom-select" id="car-years" name="car-years"></select>
+                </div>
+
+                <div class="col col-12 col-md-3">
+                    <label for="car-makes">Make</label>
+                    <select class="custom-select" id="car-makes" name="car-makes"></select>
+                </div>
+                <div class="col col-12 col-md-3">
+                    <label for="car-models">Model</label>
+                    <select class="custom-select" id="car-models" name="car-models"></select>
+                </div>
+                <div class="col col-12 col-md-3">
+                    <label for="car-model-trims">Body Type</label>
+                    <select class="custom-select" id="car-model-trims" name="car-model-trims"></select>
+                </div>
+            </div>
+            <div class="col col-12 col-md-3">
+                <label for="car-model-trims">Date Available</label>
+                <input class="custom-select" type="date" id="date-available" name="date-available" required>
+            </div>
+            <div class="col col-12">
+                <button class="btn btn-secondary btn-lg btn-block" type="submit">Get Quote!</button>
+            </div>
+    </div>
+    </form>
+</div>
+</div>
+
+<%- include("footer") -%>

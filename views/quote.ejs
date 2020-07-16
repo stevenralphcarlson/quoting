@@ -1,0 +1,46 @@
+<%- include("header") -%>
+<div class=container-fluid>
+
+  <body>
+
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="pricing-header display-4">Pricing Options</h1>
+      <p class=>You entered <strong><%= quoteOrigin %></strong> as the origin and
+        <strong><%= quoteDestination %></strong> as the destination.</p>
+      <p class=>Choose from our competitively priced transport service options and get your vehicle shipped
+        by us.</p>
+    </div>
+
+    <div class="container">
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Open Carrier</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$<%= open7DayPrice %> - $<%= open10DayPrice %><small class="text-muted"></small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Pick-up and delivery is based on shipping availability.</li>
+              <li>Choose this option if your vehicle shipment is not time sensitive.</li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-block btn-primary">Ship Now</button>
+          </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$<%= enclosed7DayPrice %> - $<%= enclosed10DayPrice %><small class="text-muted"></small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Pick-up date is within a 2-3 days.</li>
+              <li>Shipping time is between 4-5 days.</li>
+              <li>Choose this option to schedule a time for a pick-up and delivery.</li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-block btn-primary">Ship Now</button>
+          </div>
+        </div>
+      </div>
+  </body>
+</div>
+<%- include("footer") -%>
