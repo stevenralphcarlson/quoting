@@ -11,6 +11,7 @@
         by us.</p>
     </div>
 
+    <form action="/checkout" method="POST" id="checkoutForm">
     <div class="container">
       <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
@@ -18,12 +19,50 @@
             <h4 class="my-0 font-weight-normal">Open Carrier</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$<%= open7DayPrice %> - $<%= open10DayPrice %><small class="text-muted"></small></h1>
+            <h1 class="card-title pricing-card-title">$<%= openFlexible %><small class="text-muted"></small></h1>
             <ul class="list mt-3 mb-4">
               <li>Pick-up and delivery is based on shipping availability.</li>
               <li>Choose this option if your vehicle shipment is not time sensitive.</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Ship Now</button>
+          </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Open Carrier</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$<%= openStandard %><small class="text-muted"></small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Pick-up and delivery is based on shipping availability.</li>
+              <li>Choose this option if your vehicle shipment is not time sensitive.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Open Carrier</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$<%= openExpedited %><small class="text-muted"></small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Pick-up and delivery is based on shipping availability.</li>
+              <li>Choose this option if your vehicle shipment is not time sensitive.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$<%= enclosedFlexible %><small class="text-muted"></small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Pick-up date is within a 2-3 days.</li>
+              <li>Shipping time is between 4-5 days.</li>
+              <li>Choose this option to schedule a time for a pick-up and delivery.</li>
+            </ul>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -31,16 +70,31 @@
             <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$<%= enclosed7DayPrice %> - $<%= enclosed10DayPrice %><small class="text-muted"></small></h1>
+            <h1 class="card-title pricing-card-title">$<%= enclosedStandard %><small class="text-muted"></small></h1>
             <ul class="list mt-3 mb-4">
               <li>Pick-up date is within a 2-3 days.</li>
               <li>Shipping time is between 4-5 days.</li>
               <li>Choose this option to schedule a time for a pick-up and delivery.</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Ship Now</button>
+          </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$<%= enclosedExpedited %><small class="text-muted"></small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Pick-up date is within a 2-3 days.</li>
+              <li>Shipping time is between 4-5 days.</li>
+              <li>Choose this option to schedule a time for a pick-up and delivery.</li>
+            </ul>
           </div>
         </div>
       </div>
+      <button type="submit" class="btn btn-lg btn-block btn-primary">Proceed to Checkout</button>
+
+      </form>
   </body>
 </div>
 <%- include("footer") -%>

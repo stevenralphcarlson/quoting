@@ -13,8 +13,10 @@
         $('#cq-sold-in-us').click(function () { carquery.setFilters({ sold_in_us: this.checked }); });
         $('#cq-show-data').click(function () { carquery.populateCarData('car-model-data'); });
 
-        console.log(carquery);
-
+        // set the minimum date to tomorrow
+        var tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate() + 1);
+        document.getElementById("date-available").setAttribute('min', tomorrow.toISOString().split('T')[0]);
     });
 </script>
 
