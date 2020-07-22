@@ -43,3 +43,28 @@ label {
 .get-quote-button:hover {
   border: 2rem;
 }
+
+/* Quote Page */
+
+.card-header {
+  background-color: #00538b;
+  color: white;
+}
+
+.proceed-to-checkout {
+  margin: 0;
+  text-align: center;
+}
+
+.proceed-to-checkout-button {
+  background-color: #00538b;
+  border-radius: 10px;
+  color: white;
+  height: 3rem;
+  widows: 5rem;
+  font-size: 20px;
+}
+
+.proceed-to-checkout-button:hover {
+  opacity: 80%;
+}
