@@ -1,8 +1,27 @@
 <%- include("header") -%>
+<script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Stripe
+        const session_id= "<%= session_id %>";
+        console.log(session_id);
+        var stripe = Stripe('pk_test_51H6GmsA0iFQODPbSpKc85KtZjTh2vzZoQmZoN9guzft9ZnXcaYQ4MwBToU6qRruL6lxT0kkmuJ8MYi7OPihjnokl00IMSk0JYf');
+        var checkoutButton = document.getElementById('checkout-button');
+
+        checkoutButton.addEventListener('click', function () {
+            stripe.redirectToCheckout({
+                sessionId: session_id
+            }).then(function (result) {
+                console.log(result)
+                // If `redirectToCheckout` fails due to a browser or network
+                // error, display the localized error message to your customer
+                // using `result.error.message`.
+            });
+        });
+    });
+</script>
 <div class=container-fluid>
-
   <body>
-
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="pricing-header display-4">Pricing Options</h1>
       <p class=>You entered <strong><%= quoteOrigin %></strong> as the origin and
@@ -11,7 +30,6 @@
         by us.</p>
     </div>
 
-    <form action="/checkout" method="POST" id="checkoutForm">
     <div class="container">
       <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
@@ -92,9 +110,9 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-lg btn-block btn-primary">Proceed to Checkout</button>
-
-      </form>
+      <button class="btn btn-secondary btn-lg btn-block" id="checkout-button">
+        Proceed to Checkout
+      </button>
   </body>
 </div>
 <%- include("footer") -%>

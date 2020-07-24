@@ -24,7 +24,7 @@ app.get("/thankyou", function (req, res) {
   res.render("thankyou");
 });
 
-app.post("/checkout", function (req, res) {
+app.get("/checkout", async (req, res) => {
   res.render("checkout");
 });
 
@@ -82,6 +82,7 @@ app.post("/quote", function (req, res) {
         axios.get(distanceUrl),
         axios.get(fuelPriceUrl),
         axios.get(carQueryUrl),
+        1,
       ]);
 
       let distance = Math.round(
@@ -95,8 +96,6 @@ app.post("/quote", function (req, res) {
       );
 
       let carWeight = carQueryData[0].model_weight_lbs;
-      let openPercentOfCapacity = openCapacity / carWeight;
-      let enclosedPercentOfCapacity = enclosedCapacity / carWeight;
 
       let fuelSurcharge = 0;
 
@@ -111,26 +110,105 @@ app.post("/quote", function (req, res) {
       }
 
       // to do add the available date and insurance calculations
-      let openFlexible =
-        fuelSurcharge + (revenueGoal / (openCapacity / carWeight)) * distance;
-      let openStandard =
+      let openFlexible = Math.round(
+        fuelSurcharge + (revenueGoal / (openCapacity / carWeight)) * distance
+      );
+      let openStandard = Math.round(
         fuelSurcharge +
-        (revenueGoal / (openCapacity / carWeight)) * distance * 1.5;
-      let openExpedited =
+          (revenueGoal / (openCapacity / carWeight)) * distance * 1.5
+      );
+      let openExpedited = Math.round(
         fuelSurcharge +
-        (revenueGoal / (openCapacity / carWeight)) * distance * 3;
+          (revenueGoal / (openCapacity / carWeight)) * distance * 3
+      );
 
-      let enclosedFlexible =
+      let enclosedFlexible = Math.round(
         fuelSurcharge +
-        (revenueGoal / (enclosedCapacity / carWeight)) * distance;
-      let enclosedStandard =
+          (revenueGoal / (enclosedCapacity / carWeight)) * distance
+      );
+      let enclosedStandard = Math.round(
         fuelSurcharge +
-        (revenueGoal / (enclosedCapacity / carWeight)) * distance * 1.5;
-      let enclosedExpedited =
+          (revenueGoal / (enclosedCapacity / carWeight)) * distance * 1.5
+      );
+      let enclosedExpedited = Math.round(
         fuelSurcharge +
-        (revenueGoal / (enclosedCapacity / carWeight)) * distance * 3;
+          (revenueGoal / (enclosedCapacity / carWeight)) * distance * 3
+      );
 
       const vehicleJson = "../data/vehicle-data.json";
+
+      const stripe = require("stripe")(
+        "sk_test_51H6GmsA0iFQODPbSK9Bx8rBmUPhX8juvv8Efk22Vyt5Rvi8qVPD79oY6jJbNbHCCuQ9YMMZ6ov0s92wJBbQWxqYR00he9PI0Ap"
+      );
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: "openFlexible",
+              },
+              unit_amount: openFlexible,
+            },
+            quantity: 1,
+          },
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: "openStandard",
+              },
+              unit_amount: openStandard,
+            },
+            quantity: 1,
+          },
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: "openExpedited",
+              },
+              unit_amount: openExpedited,
+            },
+            quantity: 1,
+          },
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: "enclosedFlexible",
+              },
+              unit_amount: enclosedFlexible,
+            },
+            quantity: 1,
+          },
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: "enclosedStandard",
+              },
+              unit_amount: enclosedStandard,
+            },
+            quantity: 1,
+          },
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: "enclosedExpedited",
+              },
+              unit_amount: enclosedExpedited,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        success_url:
+          "https://example.com/success?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: "https://example.com/cancel",
+      });
 
       res.render("quote", {
         locationData: distanceResponse.data,
@@ -143,6 +221,7 @@ app.post("/quote", function (req, res) {
         enclosedFlexible: enclosedFlexible,
         enclosedStandard: enclosedStandard,
         enclosedExpedited: enclosedExpedited,
+        session_id: session.id,
         vehicleData: vehicleJson,
       });
     } catch (error) {
