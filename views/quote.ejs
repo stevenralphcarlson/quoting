@@ -1,26 +1,29 @@
 <%- include("header") -%>
 <script src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        // Stripe
-        const session_id= "<%= session_id %>";
-        console.log(session_id);
-        var stripe = Stripe('pk_test_51H6GmsA0iFQODPbSpKc85KtZjTh2vzZoQmZoN9guzft9ZnXcaYQ4MwBToU6qRruL6lxT0kkmuJ8MYi7OPihjnokl00IMSk0JYf');
-        var checkoutButton = document.getElementById('checkout-button');
+  $(document).ready(function () {
+    // Stripe
+    const session_id = "<%= session_id %>";
+    console.log(session_id);
+    var stripe = Stripe(
+      'pk_test_51H6GmsA0iFQODPbSpKc85KtZjTh2vzZoQmZoN9guzft9ZnXcaYQ4MwBToU6qRruL6lxT0kkmuJ8MYi7OPihjnokl00IMSk0JYf'
+    );
+    var checkoutButton = document.getElementById('checkout-button');
 
-        checkoutButton.addEventListener('click', function () {
-            stripe.redirectToCheckout({
-                sessionId: session_id
-            }).then(function (result) {
-                console.log(result)
-                // If `redirectToCheckout` fails due to a browser or network
-                // error, display the localized error message to your customer
-                // using `result.error.message`.
-            });
-        });
+    checkoutButton.addEventListener('click', function () {
+      stripe.redirectToCheckout({
+        sessionId: session_id
+      }).then(function (result) {
+        console.log(result)
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer
+        // using `result.error.message`.
+      });
     });
+  });
 </script>
 <div class=container-fluid>
+
   <body>
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="pricing-header display-4">Pricing Options</h1>
@@ -42,6 +45,7 @@
               <li>Pick-up and delivery is based on shipping availability.</li>
               <li>Choose this option if your vehicle shipment is not time sensitive.</li>
             </ul>
+            <button type="button" class="price-button">Select</button>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -54,6 +58,7 @@
               <li>Pick-up and delivery is based on shipping availability.</li>
               <li>Choose this option if your vehicle shipment is not time sensitive.</li>
             </ul>
+            <button type="button" class="price-button">Select</button>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -66,6 +71,7 @@
               <li>Pick-up and delivery is based on shipping availability.</li>
               <li>Choose this option if your vehicle shipment is not time sensitive.</li>
             </ul>
+            <button type="button" class="price-button">Select</button>
           </div>
         </div>
       </div>
@@ -81,6 +87,7 @@
               <li>Shipping time is between 4-5 days.</li>
               <li>Choose this option to schedule a time for a pick-up and delivery.</li>
             </ul>
+            <button type="button" class="price-button">Select</button>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -94,6 +101,7 @@
               <li>Shipping time is between 4-5 days.</li>
               <li>Choose this option to schedule a time for a pick-up and delivery.</li>
             </ul>
+            <button type="button" class="price-button">Select</button>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -107,14 +115,16 @@
               <li>Shipping time is between 4-5 days.</li>
               <li>Choose this option to schedule a time for a pick-up and delivery.</li>
             </ul>
+            <button type="button" class="price-button">Select</button>
           </div>
         </div>
       </div>
       <div class="proceed-to-checkout">
 
-      <button class="btn btn-secondary btn-lg btn-block" class="proceed-to-checkout-button btn btn-lg" id="checkout-button">
-        Proceed to Checkout
-      </button>
+        <button class="btn btn-secondary btn-lg btn-block" class="proceed-to-checkout-button btn btn-lg"
+          id="checkout-button">
+          Proceed to Checkout
+        </button>
   </body>
 </div>
 <%- include("footer") -%>
