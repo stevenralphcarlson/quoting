@@ -322,7 +322,7 @@ function remove(str, startIndex, count) {
   return str.substr(0, startIndex) + str.substr(startIndex + count);
 }
 
-app.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 8080, function () {
   console.log("The server is running!");
 });
 
