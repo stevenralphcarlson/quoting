@@ -86,3 +86,17 @@ label {
 .proceed-to-summary-button:hover {
   opacity: 80%;
 }
+.price-button {
+  background-color: #00538b;
+  color: white;
+  width: 6rem;
+  height: 3rem;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.price-button:hover {
+  opacity: 70%;
+  border-color: darkorange;
+  border-width: 5px;
+}
