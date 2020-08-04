@@ -68,3 +68,21 @@ label {
 .proceed-to-checkout-button:hover {
   opacity: 80%;
 }
+
+.proceed-to-summary {
+  margin: 0;
+  text-align: center;
+}
+
+.proceed-to-summary-button {
+  background-color: #00538b;
+  border-radius: 10px;
+  color: white;
+  height: 3rem;
+  widows: 5rem;
+  font-size: 20px;
+}
+
+.proceed-to-summary-button:hover {
+  opacity: 80%;
+}

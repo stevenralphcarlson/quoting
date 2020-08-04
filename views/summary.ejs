@@ -1,0 +1,45 @@
+<%- include("header") -%>
+<script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    // Stripe
+    const session_id = "<%= session_id %>";
+    console.log(session_id);
+    var stripe = Stripe(
+      "pk_test_51H6GmsA0iFQODPbSpKc85KtZjTh2vzZoQmZoN9guzft9ZnXcaYQ4MwBToU6qRruL6lxT0kkmuJ8MYi7OPihjnokl00IMSk0JYf"
+    );
+    var checkoutButton = document.getElementById("checkout-button");
+
+    checkoutButton.addEventListener("click", function () {
+      stripe
+        .redirectToCheckout({
+          sessionId: session_id,
+        })
+        .then(function (result) {
+          console.log(result);
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer
+          // using `result.error.message`.
+        });
+    });
+  });
+</script>
+<div class="container-fluid">
+  <body>
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="pricing-header display-4">Checkout Summary</h1>
+      <p class=>Your total delivery cost will be
+      <strong>$<%= selectedPrice %></strong>
+    </div>
+    <div class="proceed-to-checkout">
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        class="proceed-to-checkout-button btn btn-lg"
+        id="checkout-button"
+      >
+        Proceed to Checkout
+      </button>
+    </div>
+  </body>
+</div>
+<%- include("footer") -%>

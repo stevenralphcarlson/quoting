@@ -24,8 +24,34 @@ app.get("/thankyou", function (req, res) {
   res.render("thankyou");
 });
 
-app.get("/checkout", async (req, res) => {
-  res.render("checkout");
+app.post("/summary", async (req, res) => {
+  const selectedPrice = Number(req.body.selection);
+  const stripe = require("stripe")(
+    "sk_test_51H6GmsA0iFQODPbSK9Bx8rBmUPhX8juvv8Efk22Vyt5Rvi8qVPD79oY6jJbNbHCCuQ9YMMZ6ov0s92wJBbQWxqYR00he9PI0Ap"
+  );
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: "Delivery Cost",
+          },
+          unit_amount: selectedPrice * 100,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: "https://example.com/success?session_id={CHECKOUT_SESSION_ID}",
+    cancel_url: "http://localhost:3000/summary/cancel",
+  });
+
+  res.render("summary", {
+    session_id: session.id,
+    selectedPrice: selectedPrice,
+  });
 });
 
 app.post("/quote", function (req, res) {
@@ -38,18 +64,19 @@ app.post("/quote", function (req, res) {
   let openCapacity = 35000;
   let enclosedCapacity = 25000;
   let revenueGoal = 4.2;
-  let flexibleMinDays = 7;
-  let standardMinDays = 5;
-  let expeditedMinDays = 2;
-  let flexibleSpeed = 200;
-  let standardSpeed = 300;
-  let expeditedSpeed = 550;
-  let standardRateMultiplier = 1.5;
-  let expeditedRateMuiltiplier = 3;
+  let standardMinDays = 7;
+  let premiumMinDays = 5;
+  let expressMinDays = 2;
+  let standardSpeed = 200;
+  let premiumSpeed = 300;
+  let expressSpeed = 550;
+  let premiumRateMultiplier = 1.5;
+  let expressRateMuiltiplier = 3;
 
   let origins = req.body.origins;
   let destinations = req.body.destinations;
-  let dateAvailable = req.body["date-available"];
+  var dateParts = req.body["date-available"].split("-");
+  const dateAvailable = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 
   let distanceUrl =
     "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" +
@@ -87,13 +114,40 @@ app.post("/quote", function (req, res) {
 
       let distance = Math.round(
         distanceResponse.data.rows[0].elements[0].distance.value / 1609
-      );
+      ); // Converting meters to miles
       let formMiles = distanceResponse.data.rows[0].elements[0].distance.text;
       let formOrigin = distanceResponse.data.origin_addresses;
       let formDestination = distanceResponse.data.destination_addresses;
       let carQueryData = JSON.parse(
         trimWeirdCharactersFromJson(carQueryResponse.data)
       );
+
+      // Calculate Deliver By Dates
+      let standardDeliverBy = dateAvailable;
+      standardDeliverBy
+        .setDate(
+          standardDeliverBy.getDate() +
+            standardMinDays +
+            Math.round(distance / standardSpeed)
+        )
+        .toLocaleString();
+      standardDeliverBy = getFormattedDate(standardDeliverBy);
+
+      let premiumDeliverBy = dateAvailable;
+      premiumDeliverBy.setDate(
+        premiumDeliverBy.getDate() +
+          premiumMinDays +
+          Math.round(distance / premiumSpeed)
+      );
+      premiumDeliverBy = getFormattedDate(premiumDeliverBy);
+
+      let expressDeliverBy = dateAvailable;
+      expressDeliverBy.setDate(
+        expressDeliverBy.getDate() +
+          expressMinDays +
+          Math.round(distance / expressSpeed)
+      );
+      expressDeliverBy = getFormattedDate(expressDeliverBy);
 
       let carWeight = carQueryData[0].model_weight_lbs;
 
@@ -110,29 +164,41 @@ app.post("/quote", function (req, res) {
       }
 
       // to do add the available date and insurance calculations
-      let openFlexible = Math.round(
+      let openstandard = Math.round(
         fuelSurcharge + (revenueGoal / (openCapacity / carWeight)) * distance
       );
-      let openStandard = Math.round(
+
+      let openpremium = Math.round(
         fuelSurcharge +
-          (revenueGoal / (openCapacity / carWeight)) * distance * 1.5
-      );
-      let openExpedited = Math.round(
-        fuelSurcharge +
-          (revenueGoal / (openCapacity / carWeight)) * distance * 3
+          (revenueGoal / (openCapacity / carWeight)) *
+            distance *
+            premiumRateMultiplier
       );
 
-      let enclosedFlexible = Math.round(
+      let openexpress = Math.round(
+        fuelSurcharge +
+          (revenueGoal / (openCapacity / carWeight)) *
+            distance *
+            expressRateMuiltiplier
+      );
+
+      let enclosedstandard = Math.round(
         fuelSurcharge +
           (revenueGoal / (enclosedCapacity / carWeight)) * distance
       );
-      let enclosedStandard = Math.round(
+
+      let enclosedpremium = Math.round(
         fuelSurcharge +
-          (revenueGoal / (enclosedCapacity / carWeight)) * distance * 1.5
+          (revenueGoal / (enclosedCapacity / carWeight)) *
+            distance *
+            premiumRateMultiplier
       );
-      let enclosedExpedited = Math.round(
+
+      let enclosedexpress = Math.round(
         fuelSurcharge +
-          (revenueGoal / (enclosedCapacity / carWeight)) * distance * 3
+          (revenueGoal / (enclosedCapacity / carWeight)) *
+            distance *
+            expressRateMuiltiplier
       );
 
       const vehicleJson = "../data/vehicle-data.json";
@@ -147,9 +213,9 @@ app.post("/quote", function (req, res) {
             price_data: {
               currency: "usd",
               product_data: {
-                name: "openFlexible",
+                name: "openstandard",
               },
-              unit_amount: openFlexible,
+              unit_amount: openstandard,
             },
             quantity: 1,
           },
@@ -157,9 +223,9 @@ app.post("/quote", function (req, res) {
             price_data: {
               currency: "usd",
               product_data: {
-                name: "openStandard",
+                name: "openpremium",
               },
-              unit_amount: openStandard,
+              unit_amount: openpremium,
             },
             quantity: 1,
           },
@@ -167,9 +233,9 @@ app.post("/quote", function (req, res) {
             price_data: {
               currency: "usd",
               product_data: {
-                name: "openExpedited",
+                name: "openexpress",
               },
-              unit_amount: openExpedited,
+              unit_amount: openexpress,
             },
             quantity: 1,
           },
@@ -177,9 +243,9 @@ app.post("/quote", function (req, res) {
             price_data: {
               currency: "usd",
               product_data: {
-                name: "enclosedFlexible",
+                name: "enclosedstandard",
               },
-              unit_amount: enclosedFlexible,
+              unit_amount: enclosedstandard,
             },
             quantity: 1,
           },
@@ -187,9 +253,9 @@ app.post("/quote", function (req, res) {
             price_data: {
               currency: "usd",
               product_data: {
-                name: "enclosedStandard",
+                name: "enclosedpremium",
               },
-              unit_amount: enclosedStandard,
+              unit_amount: enclosedpremium,
             },
             quantity: 1,
           },
@@ -197,9 +263,9 @@ app.post("/quote", function (req, res) {
             price_data: {
               currency: "usd",
               product_data: {
-                name: "enclosedExpedited",
+                name: "enclosedexpress",
               },
-              unit_amount: enclosedExpedited,
+              unit_amount: enclosedexpress,
             },
             quantity: 1,
           },
@@ -215,12 +281,15 @@ app.post("/quote", function (req, res) {
         quoteMiles: formMiles,
         quoteOrigin: formOrigin,
         quoteDestination: formDestination,
-        openFlexible: openFlexible,
-        openStandard: openStandard,
-        openExpedited: openExpedited,
-        enclosedFlexible: enclosedFlexible,
-        enclosedStandard: enclosedStandard,
-        enclosedExpedited: enclosedExpedited,
+        openstandard: openstandard,
+        openpremium: openpremium,
+        openexpress: openexpress,
+        enclosedstandard: enclosedstandard,
+        enclosedpremium: enclosedpremium,
+        enclosedexpress: enclosedexpress,
+        standardDeliverBy: standardDeliverBy,
+        premiumDeliverBy: premiumDeliverBy,
+        expressDeliverBy: expressDeliverBy,
         session_id: session.id,
         vehicleData: vehicleJson,
       });
@@ -229,6 +298,18 @@ app.post("/quote", function (req, res) {
     }
   })();
 });
+
+function getFormattedDate(date) {
+  var year = date.getFullYear();
+
+  var month = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : "0" + month;
+
+  var day = date.getDate().toString();
+  day = day.length > 1 ? day : "0" + day;
+
+  return month + "-" + day + "-" + year;
+}
 
 function trimWeirdCharactersFromJson(jsonString) {
   if (jsonString.startsWith("?(")) jsonString = remove(jsonString, 0, 2);
