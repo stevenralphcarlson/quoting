@@ -203,6 +203,10 @@ app.post("/quote", function (req, res) {
             expressRateMuiltiplier
       );
 
+      // Price difference for upgrade options
+
+      let upgradeToEnclosed = enclosedstandard - openstandard;
+
       const vehicleJson = "../data/vehicle-data.json";
 
       const stripe = require("stripe")(
@@ -297,6 +301,7 @@ app.post("/quote", function (req, res) {
         expressDeliverBy: expressDeliverBy,
         session_id: session.id,
         vehicleData: vehicleJson,
+        upgradeToEnclosed, upgradeToEnclosed
       });
     } catch (error) {
       console.log(error.response.body);

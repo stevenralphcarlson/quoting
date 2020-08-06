@@ -91,6 +91,12 @@ label {
 .proceed-to-summary-button:hover {
   opacity: 80%;
 }
+
+.jumbotron {
+  font-family: "Roboto", sans-serif;
+  margin-top: 6rem;
+}
+
 .price-button {
   background-color: #00538b;
   color: white;
@@ -106,12 +112,18 @@ label {
   border-width: 5px;
 }
 
+#theForm {
+  width: 25%;
+  margin: auto;
+  text-align: center;
+}
+
 .order-summary {
   font-family: "Roboto", sans-serif;
   float: right;
   text-align: justify;
   margin-top: 1.5rem;
-  width: 30%;
+  width: 25%;
   font-size: 18px;
   background-color: whitesmoke;
 }
