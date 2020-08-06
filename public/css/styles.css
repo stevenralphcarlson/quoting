@@ -113,16 +113,17 @@ label {
 }
 
 #theForm {
-  width: 25%;
+  width: 100%;
   margin: auto;
   text-align: center;
 }
 
 .order-summary {
   font-family: "Roboto", sans-serif;
-  float: right;
+  float: left;
   text-align: justify;
   margin-top: 1.5rem;
+  margin-left: 5%;
   width: 25%;
   font-size: 18px;
   background-color: whitesmoke;
