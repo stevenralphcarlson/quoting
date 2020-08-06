@@ -4,15 +4,22 @@
   $(document).ready(function () {
   });
 </script>
-<div class=container-fluid>
-
+<div class="container-fluid">
   <body>
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="pricing-header display-4">Pricing Options</h1>
-      <p class=>You entered <strong><%= quoteOrigin %></strong> as the origin and
-        <strong><%= quoteDestination %></strong> as the destination.</p>
-      <p class=>Choose from our competitively priced transport service options and get your vehicle shipped
-        by us.</p>
+        <h1 class="pricing-header display-4">Pricing Options</h1>
+    <div class="card order-summary">
+      <div class="card-body"> 
+        <h2 class="card-title">Order Summary</h2>
+          <ul>
+            <li><strong>Origin:</strong> <%= quoteOrigin %>.</li>
+            <li><strong>Destination:</strong> <%= quoteDestination %>.</li>
+            <li><strong>Miles:</strong> <%= distance %>.</li>
+            <li><strong>Vehicle:</strong> <%= vehicleInformation %>.</li>
+            <li><strong>Date Available:</strong> <%= dateAvailable %>.</li>
+          </ul>
+      </div>
+     </div>
     </div>
     <form action="/summary" method="POST" id="theForm">
     <div class="container">

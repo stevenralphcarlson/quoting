@@ -3,6 +3,11 @@ h1 {
   color: #00538b;
 }
 
+h2 {
+  color: #00538b;
+  font-family: "Roboto", sans-serif;
+}
+
 label {
   color: #00538b;
   font-size: 20px;
@@ -99,4 +104,14 @@ label {
   opacity: 70%;
   border-color: darkorange;
   border-width: 5px;
+}
+
+.order-summary {
+  font-family: "Roboto", sans-serif;
+  float: right;
+  text-align: justify;
+  margin-top: 1.5rem;
+  width: 30%;
+  font-size: 18px;
+  background-color: whitesmoke;
 }

@@ -75,8 +75,10 @@ app.post("/quote", function (req, res) {
 
   let origins = req.body.origins;
   let destinations = req.body.destinations;
-  var dateParts = req.body["date-available"].split("-");
+  let vehicleInformation = req.body["car-years"] + " " + req.body["car-makes"] + " " + req.body["car-models"] + " " + req.body["car-model-trims"];
+  let dateParts = req.body["date-available"].split("-");
   const dateAvailable = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
 
   let distanceUrl =
     "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" +
@@ -92,12 +94,12 @@ app.post("/quote", function (req, res) {
     "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModel&model=" +
     req.body["car-model-trims"];
 
-  let insurance = 1.8;
-  let tenDays = 1.3;
-  let sevenDays = 1.8;
-  let baseRate = 270;
-  let open = 0.28;
-  let enclosed = 0.42;
+  // let insurance = 1.8;
+  // let tenDays = 1.3;
+  // let sevenDays = 1.8;
+  // let baseRate = 270;
+  // let open = 0.28;
+  // let enclosed = 0.42;
 
   (async () => {
     try {
@@ -280,6 +282,9 @@ app.post("/quote", function (req, res) {
         locationData: distanceResponse.data,
         quoteMiles: formMiles,
         quoteOrigin: formOrigin,
+        distance, distance,
+        dateAvailable, dateAvailable,
+        vehicleInformation, vehicleInformation,
         quoteDestination: formDestination,
         openstandard: openstandard,
         openpremium: openpremium,
