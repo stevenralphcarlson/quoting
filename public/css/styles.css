@@ -1,6 +1,19 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: rgba(211, 211, 211, 0.274);
+}
+
 h1 {
   font-family: "Roboto", sans-serif;
   color: #00538b;
+}
+
+h2 {
+  color: #00538b;
+  font-family: "Roboto", sans-serif;
 }
 
 label {
@@ -49,6 +62,12 @@ label {
 .card-header {
   background-color: #00538b;
   color: white;
+  box-shadow: 2px 2px lightgray;
+}
+
+.card-body {
+  background-color: whitesmoke;
+  box-shadow: 2px 2px lightgray;
 }
 
 .proceed-to-checkout {
@@ -86,6 +105,12 @@ label {
 .proceed-to-summary-button:hover {
   opacity: 80%;
 }
+
+.jumbotron {
+  font-family: "Roboto", sans-serif;
+  margin-top: 6rem;
+}
+
 .price-button {
   background-color: #00538b;
   color: white;
@@ -99,4 +124,21 @@ label {
   opacity: 70%;
   border-color: darkorange;
   border-width: 5px;
+}
+
+#theForm {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.order-summary {
+  float: left;
+  text-align: justify;
+  margin-top: 1.5rem;
+  margin-left: 5%;
+  width: 25%;
+  font-size: 18px;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px lightgray;
 }

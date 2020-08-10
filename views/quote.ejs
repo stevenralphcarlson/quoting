@@ -2,24 +2,37 @@
 <script type="text/javascript">
   $(document).ready(function () {
     var priceHierarchy = {
-    openstandard: "1",
-    openpremium: "2",
-    openexpress: "3",
-    enclcosedstandard: "4",
-    enclosedpremium: "5",
-    enclosedexpress: "6",
-};
+      openstandard: "1",
+      openpremium: "2",
+      openexpress: "3",
+      enclcosedstandard: "4",
+      enclosedpremium: "5",
+      enclosedexpress: "6",
+    };
+
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    });
+
   });
 </script>
-<div class=container-fluid>
+<div class="container-fluid">
 
   <body>
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="pricing-header display-4">Pricing Options</h1>
-      <p class=>You entered <strong><%= quoteOrigin %></strong> as the origin and
-        <strong><%= quoteDestination %></strong> as the destination.</p>
-      <p class=>Choose from our competitively priced transport service options and get your vehicle shipped
-        by us.</p>
+      <!-- <div class="card order-summary">
+        <div class="card-body">
+          <h2 class="card-title">Order Summary</h2>
+          <ul>
+            <li><strong>Origin:</strong> <%= quoteOrigin %>.</li>
+            <li><strong>Destination:</strong> <%= quoteDestination %>.</li>
+            <li><strong>Miles:</strong> <%= distance %>.</li>
+            <li><strong>Vehicle:</strong> <%= vehicleInformation %>.</li>
+            <li><strong>Date Available:</strong> <%= dateAvailable %>.</li>
+          </ul>
+        </div>
+      </div> -->
     </div>
     <form action="/summary" method="POST" id="theForm">
       <div class="container">
@@ -28,16 +41,60 @@
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Open Carrier</h4>
             </div>
+            <!-- Open Trailer Image -->
+            <div class="openTrailerImage">
+              <img src="/images/openTrailer.jpeg" alt="Open Car Trailer"
+                style="width: 50%; border:2px solid lightgray;">
+            </div>
+            <!-- Question Mark Icon -->
+            <button type="button" class="btn btn-lg btn-info" data-toggle="popover" title="What is an Open Trailer"
+              data-content="An 'Open Trailer' is a trailer that is open and exposed to the elements.  See the image for an example."
+              style="background-color: transparent; border: none; float: right; margin-right: 2rem; width: 25px;">
+              <i class="fas fa-question fa-2x" style="color: #00538b;"></i>
+            </button>
             <div class="card-body">
               <h1 class="card-title pricing-card-title">$<%= openstandard %><small class="text-muted"></small></h1>
-              <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-open-button"
-                data-toggle="collapse" data-target="#opencollapse" aria-expanded="false" aria-controls="opencollapse">
-                Choose
+              <!-- <ul class="list mt-3 mb-4" style="list-style: none;">
+                <li>Pick-up and delivery is based on shipping availability.</li>
+                <li>Choose this option if your vehicle shipment is not time sensitive.</li>
+              </ul> -->
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#upgradeEnclosed">
+                Continue
               </button>
+              <!-- Modal -->
+              <div class="modal fade" data-backdrop="static" id="upgradeEnclosed" tabindex="-1"
+                aria-labelledby="upgradeEnclosedLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="upgradeEnclosedLabel">Upgrade to Enclosed
+                      </h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      You can upgrade to an <strong style="color: #00538b;">'Enclosed Trailer'</strong> for an
+                      additional
+                      <br>
+                      <strong style="color: #00538b;">$<%= upgradeToEnclosed %></strong>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" data-dismiss="modal">Contiune with Open</button>
+                      <button type="submit" class="btn btn-success">Upgrade to Enclosed</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <button type="button" class="btn btn-secondary btn-lg" id="choose-open-button" data-toggle="collapse"
+              data-target="#opencollapse" aria-expanded="false" aria-controls="opencollapse">
+              Choose
+            </button> -->
             </div>
             <div class="collapse" id="opencollapse">
               <div class="card-body">
-                <input type="radio" id="openstandard" name="selection" value="Open Standard">
+                <input type="radio" id="openstandard" name="selection" value=<%= openstandard %>>
                 <label for="openstandard">Standard $<%= openstandard %></label>
                 <label>Deliver By: <%= standardDeliverBy %></label>
                 <br />
@@ -54,13 +111,19 @@
             </div>
           </div>
         </div>
-        <div id="enclosedBody" class="card-deck mb-3 text-center">
+        <!-- Hidden for now -->
+        <div style="visibility: hidden;" id="enclosedBody" class="card-deck mb-3 text-center">
           <div class="card mb-4 shadow-sm">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
             </div>
             <div class="card-body">
               <h1 class="card-title pricing-card-title">$<%= enclosedstandard %><small class="text-muted"></small></h1>
+              <ul class="list mt-3 mb-4">
+                <li>Pick-up date is within a 2-3 days.</li>
+                <li>Shipping time is between 4-5 days.</li>
+                <li>Choose this option to schedule a time for a pick-up and delivery.</li>
+              </ul>
               <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-enclosed-button"
                 data-toggle="collapse" data-target="#enclosedcollapse" aria-expanded="false"
                 aria-controls="enclosedcollapse">
@@ -87,7 +150,7 @@
           </div>
         </div>
         <div class="proceed-to-summary">
-          <button class="btn btn-primary btn-lg btn-block" type="submit" class="proceed-to-summary-button btn btn-lg"
+          <button class="btn btn-primary btn-lg" type="submit" class="proceed-to-summary-button btn btn-lg"
             id="summary-button">
             Proceed to Summary
           </button>

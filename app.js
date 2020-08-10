@@ -111,7 +111,15 @@ app.post("/quote", function (req, res) {
     capitalizeFirstLetter(req.body["car-models"]);
   let origins = req.body.origins;
   let destinations = req.body.destinations;
-  var dateParts = req.body["date-available"].split("-");
+  let vehicleInformation =
+    req.body["car-years"] +
+    " " +
+    req.body["car-makes"] +
+    " " +
+    req.body["car-models"] +
+    " " +
+    req.body["car-model-trims"];
+  let dateParts = req.body["date-available"].split("-");
   const dateAvailable = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
 
   let distanceUrl =
@@ -240,10 +248,19 @@ app.post("/quote", function (req, res) {
       ssn.to = formDestination;
       ssn.vehicle = vehicle;
 
+      // Price difference for upgrade options
+      let upgradeToEnclosed = enclosedstandard - openstandard;
+
       res.render("quote", {
         locationData: distanceResponse.data,
         quoteMiles: formMiles,
         quoteOrigin: formOrigin,
+        distance,
+        distance,
+        dateAvailable,
+        dateAvailable,
+        vehicleInformation,
+        vehicleInformation,
         quoteDestination: formDestination,
         openstandard: openstandard,
         openpremium: openpremium,
@@ -255,6 +272,7 @@ app.post("/quote", function (req, res) {
         premiumDeliverBy: premiumDeliverBy,
         expressDeliverBy: expressDeliverBy,
         vehicle: vehicle,
+        upgradeToEnclosed: upgradeToEnclosed,
       });
     } catch (error) {
       console.log(error.response.body);
