@@ -1,7 +1,14 @@
 <%- include("header") -%>
-<script src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript">
   $(document).ready(function () {
+    var priceHierarchy = {
+    openstandard: "1",
+    openpremium: "2",
+    openexpress: "3",
+    enclcosedstandard: "4",
+    enclosedpremium: "5",
+    enclosedexpress: "6",
+};
   });
 </script>
 <div class=container-fluid>
@@ -15,84 +22,76 @@
         by us.</p>
     </div>
     <form action="/summary" method="POST" id="theForm">
-    <div class="container">
-      <div id="openBody" class="card-deck mb-3 text-center">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Open Carrier</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">$<%= openstandard %><small class="text-muted"></small></h1>
-            <ul class="list mt-3 mb-4">
-              <li>Pick-up and delivery is based on shipping availability.</li>
-              <li>Choose this option if your vehicle shipment is not time sensitive.</li>
-            </ul>
-            <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-open-button" data-toggle="collapse"
-              data-target="#opencollapse" aria-expanded="false" aria-controls="opencollapse">
-              Choose
-            </button>
-          </div>
-          <div class="collapse" id="opencollapse">
+      <div class="container">
+        <div id="openBody" class="card-deck mb-3 text-center">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Open Carrier</h4>
+            </div>
             <div class="card-body">
-              <input type="radio" id="openstandard" name="selection" value=<%= openstandard %>>
-              <label for="openstandard">Standard $<%= openstandard %></label>
-              <label >Deliver By: <%= standardDeliverBy %></label>
-              <br />
+              <h1 class="card-title pricing-card-title">$<%= openstandard %><small class="text-muted"></small></h1>
+              <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-open-button"
+                data-toggle="collapse" data-target="#opencollapse" aria-expanded="false" aria-controls="opencollapse">
+                Choose
+              </button>
+            </div>
+            <div class="collapse" id="opencollapse">
+              <div class="card-body">
+                <input type="radio" id="openstandard" name="selection" value="Open Standard">
+                <label for="openstandard">Standard $<%= openstandard %></label>
+                <label>Deliver By: <%= standardDeliverBy %></label>
+                <br />
 
-              <input type="radio" id="openpremium" name="selection" value=<%= openpremium %>>
-              <label for="openpremium">Premium $<%= openpremium %></label>
-              <label >Deliver By: <%= premiumDeliverBy %></label>
-              <br />
+                <input type="radio" id="openpremium" name="selection" value="Open Premium">
+                <label for="openpremium">Premium $<%= openpremium %></label>
+                <label>Deliver By: <%= premiumDeliverBy %></label>
+                <br />
 
-              <input type="radio" id="openexpress" name="selection" value=<%= openexpress %>>
-              <label for="openexpress">Express $<%= openexpress %></label>
-              <label >Deliver By: <%= expressDeliverBy %></label>
+                <input type="radio" id="openexpress" name="selection" value="Open Express">
+                <label for="openexpress">Express $<%= openexpress %></label>
+                <label>Deliver By: <%= expressDeliverBy %></label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="enclosedBody" class="card-deck mb-3 text-center">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
-          </div>
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">$<%= enclosedstandard %><small class="text-muted"></small></h1>
-            <ul class="list mt-3 mb-4">
-              <li>Pick-up date is within a 2-3 days.</li>
-              <li>Shipping time is between 4-5 days.</li>
-              <li>Choose this option to schedule a time for a pick-up and delivery.</li>
-            </ul>
-            <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-enclosed-button" data-toggle="collapse"
-              data-target="#enclosedcollapse" aria-expanded="false" aria-controls="enclosedcollapse">
-              Choose
-            </button>
-          </div>
-          <div class="collapse" id="enclosedcollapse">
+        <div id="enclosedBody" class="card-deck mb-3 text-center">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
+            </div>
             <div class="card-body">
-              <input type="radio" id="enclosedstandard" name="selection" value=<%= enclosedstandard %>>
-              <label for="enclosedstandard">Standard $<%= enclosedstandard %></label>
-              <label >Deliver By: <%= standardDeliverBy %></label>
-              <br />
+              <h1 class="card-title pricing-card-title">$<%= enclosedstandard %><small class="text-muted"></small></h1>
+              <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-enclosed-button"
+                data-toggle="collapse" data-target="#enclosedcollapse" aria-expanded="false"
+                aria-controls="enclosedcollapse">
+                Choose
+              </button>
+            </div>
+            <div class="collapse" id="enclosedcollapse">
+              <div class="card-body">
+                <input type="radio" id="enclosedstandard" name="selection" value="Enclosed Standard">
+                <label for="enclosedstandard">Standard $<%= enclosedstandard %></label>
+                <label>Deliver By: <%= standardDeliverBy %></label>
+                <br />
 
-              <input type="radio" id="enclosedpremium" name="selection" value=<%= enclosedpremium %>>
-              <label for="enclosedpremium">Premium $<%= enclosedpremium %></label>
-              <label >Deliver By: <%= premiumDeliverBy %></label>
-              <br />
+                <input type="radio" id="enclosedpremium" name="selection" value="Enclosed Premium">
+                <label for="enclosedpremium">Premium $<%= enclosedpremium %></label>
+                <label>Deliver By: <%= premiumDeliverBy %></label>
+                <br />
 
-              <input type="radio" id="enclosedexpress" name="selection" value=<%= enclosedexpress %>>
-              <label for="enclosedexpress">Express $<%= enclosedexpress %></label>
-              <label >Deliver By: <%= expressDeliverBy %></label>
+                <input type="radio" id="enclosedexpress" name="selection" value="Enclosed Express">
+                <label for="enclosedexpress">Express $<%= enclosedexpress %></label>
+                <label>Deliver By: <%= expressDeliverBy %></label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="proceed-to-summary">
-        <button class="btn btn-primary btn-lg btn-block" type="submit" class="proceed-to-summary-button btn btn-lg"
-          id="summary-button">
-          Proceed to Summary
-        </button>
-      </div>
+        <div class="proceed-to-summary">
+          <button class="btn btn-primary btn-lg btn-block" type="submit" class="proceed-to-summary-button btn btn-lg"
+            id="summary-button">
+            Proceed to Summary
+          </button>
+        </div>
     </form>
 
   </body>

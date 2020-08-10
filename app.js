@@ -1,4 +1,5 @@
 const express = require("express");
+var session = require("express-session");
 const axios = require("axios");
 
 const app = express();
@@ -7,6 +8,7 @@ const bodyParser = require("body-parser");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ resave: true, secret: "123456", saveUninitialized: true }));
 
 app.get("/", function (req, res) {
   res.render("form");
@@ -24,8 +26,34 @@ app.get("/thankyou", function (req, res) {
   res.render("thankyou");
 });
 
+function getPrice(selection, ssn) {
+  let price = ssn.openstandard;
+  switch (selection) {
+    case "Open Standard":
+      price = ssn.openstandard;
+      break;
+    case "Open Premium":
+      price = ssn.openpremium;
+      break;
+    case "Open Express":
+      price = ssn.openexpress;
+      break;
+    case "Enclosed Standard":
+      price = ssn.enclosedstandard;
+      break;
+    case "Enclosed Premium":
+      price = ssn.enclosedpremium;
+      break;
+    case "Enclosed Express":
+      price = ssn.enclosedexpress;
+      break;
+  }
+  return price;
+}
+
 app.post("/summary", async (req, res) => {
-  const selectedPrice = Number(req.body.selection);
+  const ssn = req.session;
+  const selectedPrice = getPrice(req.body.selection, ssn);
   const stripe = require("stripe")(
     "sk_test_51H6GmsA0iFQODPbSK9Bx8rBmUPhX8juvv8Efk22Vyt5Rvi8qVPD79oY6jJbNbHCCuQ9YMMZ6ov0s92wJBbQWxqYR00he9PI0Ap"
   );
@@ -51,6 +79,10 @@ app.post("/summary", async (req, res) => {
   res.render("summary", {
     session_id: session.id,
     selectedPrice: selectedPrice,
+    vehicle: ssn.vehicle,
+    from: ssn.from,
+    to: ssn.to,
+    service: req.body.selection,
   });
 });
 
@@ -73,6 +105,10 @@ app.post("/quote", function (req, res) {
   let premiumRateMultiplier = 1.5;
   let expressRateMuiltiplier = 3;
 
+  const vehicle =
+    capitalizeFirstLetter(req.body["car-makes"]) +
+    " " +
+    capitalizeFirstLetter(req.body["car-models"]);
   let origins = req.body.origins;
   let destinations = req.body.destinations;
   var dateParts = req.body["date-available"].split("-");
@@ -91,13 +127,6 @@ app.post("/quote", function (req, res) {
   let carQueryUrl =
     "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModel&model=" +
     req.body["car-model-trims"];
-
-  let insurance = 1.8;
-  let tenDays = 1.3;
-  let sevenDays = 1.8;
-  let baseRate = 270;
-  let open = 0.28;
-  let enclosed = 0.42;
 
   (async () => {
     try {
@@ -123,17 +152,15 @@ app.post("/quote", function (req, res) {
       );
 
       // Calculate Deliver By Dates
-      let standardDeliverBy = dateAvailable;
-      standardDeliverBy
-        .setDate(
-          standardDeliverBy.getDate() +
-            standardMinDays +
-            Math.round(distance / standardSpeed)
-        )
-        .toLocaleString();
+      let standardDeliverBy = new Date(dateAvailable);
+      standardDeliverBy.setDate(
+        standardDeliverBy.getDate() +
+          standardMinDays +
+          Math.round(distance / standardSpeed)
+      );
       standardDeliverBy = getFormattedDate(standardDeliverBy);
 
-      let premiumDeliverBy = dateAvailable;
+      let premiumDeliverBy = new Date(dateAvailable);
       premiumDeliverBy.setDate(
         premiumDeliverBy.getDate() +
           premiumMinDays +
@@ -141,7 +168,7 @@ app.post("/quote", function (req, res) {
       );
       premiumDeliverBy = getFormattedDate(premiumDeliverBy);
 
-      let expressDeliverBy = dateAvailable;
+      let expressDeliverBy = new Date(dateAvailable);
       expressDeliverBy.setDate(
         expressDeliverBy.getDate() +
           expressMinDays +
@@ -201,80 +228,17 @@ app.post("/quote", function (req, res) {
             expressRateMuiltiplier
       );
 
-      const vehicleJson = "../data/vehicle-data.json";
-
-      const stripe = require("stripe")(
-        "sk_test_51H6GmsA0iFQODPbSK9Bx8rBmUPhX8juvv8Efk22Vyt5Rvi8qVPD79oY6jJbNbHCCuQ9YMMZ6ov0s92wJBbQWxqYR00he9PI0Ap"
-      );
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items: [
-          {
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: "openstandard",
-              },
-              unit_amount: openstandard,
-            },
-            quantity: 1,
-          },
-          {
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: "openpremium",
-              },
-              unit_amount: openpremium,
-            },
-            quantity: 1,
-          },
-          {
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: "openexpress",
-              },
-              unit_amount: openexpress,
-            },
-            quantity: 1,
-          },
-          {
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: "enclosedstandard",
-              },
-              unit_amount: enclosedstandard,
-            },
-            quantity: 1,
-          },
-          {
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: "enclosedpremium",
-              },
-              unit_amount: enclosedpremium,
-            },
-            quantity: 1,
-          },
-          {
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: "enclosedexpress",
-              },
-              unit_amount: enclosedexpress,
-            },
-            quantity: 1,
-          },
-        ],
-        mode: "payment",
-        success_url:
-          "https://example.com/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "https://example.com/cancel",
-      });
+      const ssn = req.session;
+      ssn.openstandard = openstandard;
+      ssn.openstandard = openstandard;
+      ssn.openpremium = openpremium;
+      ssn.openexpress = openexpress;
+      ssn.enclosedstandard = enclosedstandard;
+      ssn.enclosedpremium = enclosedpremium;
+      ssn.enclosedexpress = enclosedexpress;
+      ssn.from = formOrigin;
+      ssn.to = formDestination;
+      ssn.vehicle = vehicle;
 
       res.render("quote", {
         locationData: distanceResponse.data,
@@ -290,14 +254,17 @@ app.post("/quote", function (req, res) {
         standardDeliverBy: standardDeliverBy,
         premiumDeliverBy: premiumDeliverBy,
         expressDeliverBy: expressDeliverBy,
-        session_id: session.id,
-        vehicleData: vehicleJson,
+        vehicle: vehicle,
       });
     } catch (error) {
       console.log(error.response.body);
     }
   })();
 });
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function getFormattedDate(date) {
   var year = date.getFullYear();
