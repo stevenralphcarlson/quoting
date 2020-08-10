@@ -11,9 +11,8 @@
     };
 
     $(function () {
-      $('[data-toggle="popover"]').popover()
+      $('[data-toggle="popover"]').popover();
     });
-
   });
 </script>
 <div class="container-fluid">
@@ -36,127 +35,134 @@
     </div>
     <form action="/summary" method="POST" id="theForm">
       <div class="container">
-        <div id="openBody" class="card-deck mb-3 text-center">
-          <div class="card mb-4 shadow-sm">
+        <div id="part1">
+          <div class="row">
             <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Open Carrier</h4>
+              <h4 class="my-0 font-weight-normal">Select an option</h4>
             </div>
-            <!-- Open Trailer Image -->
-            <div class="openTrailerImage">
-              <img src="/images/openTrailer.jpeg" alt="Open Car Trailer"
-                style="width: 50%; border:2px solid lightgray;">
-            </div>
-            <!-- Question Mark Icon -->
-            <button type="button" class="btn btn-lg btn-info" data-toggle="popover" title="What is an Open Trailer"
-              data-content="An 'Open Trailer' is a trailer that is open and exposed to the elements.  See the image for an example."
-              style="background-color: transparent; border: none; float: right; margin-right: 2rem; width: 25px;">
-              <i class="fas fa-question fa-2x" style="color: #00538b;"></i>
-            </button>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$<%= openstandard %><small class="text-muted"></small></h1>
-              <!-- <ul class="list mt-3 mb-4" style="list-style: none;">
+              <div class="col-sm">
+                <!-- Open Trailer Image -->
+                <div class="openTrailerImage">
+                  <img src="/images/openTrailer.jpeg" alt="Open Car Trailer"
+                    style="width: 50%; border: 2px solid lightgray;" />
+                </div>
+                <p>
+                  An 'Open Trailer' is a trailer that is open and exposed to the
+                  elements. See the image for an example.
+                </p>
+                <h1 class="card-title pricing-card-title">
+                  $<%= openstandard %><small class="text-muted"></small>
+                </h1>
+              </div>
+              <div class="col-sm">
+                <!-- TODO: Enlcosed Trailer Image -->
+                <div class="openTrailerImage">
+                  <img src="/images/openTrailer.jpeg" alt="Enclosed Car Trailer"
+                    style="width: 50%; border: 2px solid lightgray;" />
+                </div>
+                <p>
+                  An 'Enclosed Trailer' is a trailer that protects from the
+                  elements. See the image for an example.
+                </p>
+                <h1 class="card-title pricing-card-title">
+                  Upgrade for $<%= enclosedstandard - openstandard %><small class="text-muted"></small>
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="part2">
+
+        </div>
+      </div>
+      <div id="openBody" class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+
+          <!-- <ul class="list mt-3 mb-4" style="list-style: none;">
                 <li>Pick-up and delivery is based on shipping availability.</li>
                 <li>Choose this option if your vehicle shipment is not time sensitive.</li>
               </ul> -->
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#upgradeEnclosed">
-                Continue
-              </button>
-              <!-- Modal -->
-              <div class="modal fade" data-backdrop="static" id="upgradeEnclosed" tabindex="-1"
-                aria-labelledby="upgradeEnclosedLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="upgradeEnclosedLabel">Upgrade to Enclosed
-                      </h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      You can upgrade to an <strong style="color: #00538b;">'Enclosed Trailer'</strong> for an
-                      additional
-                      <br>
-                      <strong style="color: #00538b;">$<%= upgradeToEnclosed %></strong>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary" data-dismiss="modal">Contiune with Open</button>
-                      <button type="submit" class="btn btn-success">Upgrade to Enclosed</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- <button type="button" class="btn btn-secondary btn-lg" id="choose-open-button" data-toggle="collapse"
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#upgradeEnclosed">
+            Select Enclosed Carrier
+          </button>
+          <br />
+          <input type="checkbox" id="cbAcceptRestrictions" name="cbAcceptRestrictions">
+          <label for="cbAcceptRestrictions">Accept Restrictions</label> | <button type="button" class="link">Continue
+            with Open Carrier</button>
+          <!-- <button type="button" class="btn btn-secondary btn-lg" id="choose-open-button" data-toggle="collapse"
               data-target="#opencollapse" aria-expanded="false" aria-controls="opencollapse">
               Choose
             </button> -->
-            </div>
-            <div class="collapse" id="opencollapse">
-              <div class="card-body">
-                <input type="radio" id="openstandard" name="selection" value=<%= openstandard %>>
-                <label for="openstandard">Standard $<%= openstandard %></label>
-                <label>Deliver By: <%= standardDeliverBy %></label>
-                <br />
+        </div>
+        <div class="collapse" id="opencollapse">
+          <div class="card-body">
+            <input type="radio" id="openstandard" name="selection" value="Open Standard">
+            <label for="openstandard">Standard $<%= openstandard %></label>
+            <label>Deliver By: <%= standardDeliverBy %></label>
+            <br />
 
-                <input type="radio" id="openpremium" name="selection" value="Open Premium">
-                <label for="openpremium">Premium $<%= openpremium %></label>
-                <label>Deliver By: <%= premiumDeliverBy %></label>
-                <br />
+            <input type=" radio" id="openpremium" name="selection" value="Open Premium" />
+            <label for="openpremium">Premium $<%= openpremium %></label>
+            <label>Deliver By: <%= premiumDeliverBy %></label>
+            <br />
 
-                <input type="radio" id="openexpress" name="selection" value="Open Express">
-                <label for="openexpress">Express $<%= openexpress %></label>
-                <label>Deliver By: <%= expressDeliverBy %></label>
-              </div>
-            </div>
+            <input type="radio" id="openexpress" name="selection" value="Open Express" />
+            <label for="openexpress">Express $<%= openexpress %></label>
+            <label>Deliver By: <%= expressDeliverBy %></label>
           </div>
         </div>
-        <!-- Hidden for now -->
-        <div style="visibility: hidden;" id="enclosedBody" class="card-deck mb-3 text-center">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">$<%= enclosedstandard %><small class="text-muted"></small></h1>
-              <ul class="list mt-3 mb-4">
-                <li>Pick-up date is within a 2-3 days.</li>
-                <li>Shipping time is between 4-5 days.</li>
-                <li>Choose this option to schedule a time for a pick-up and delivery.</li>
-              </ul>
-              <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-enclosed-button"
-                data-toggle="collapse" data-target="#enclosedcollapse" aria-expanded="false"
-                aria-controls="enclosedcollapse">
-                Choose
-              </button>
-            </div>
-            <div class="collapse" id="enclosedcollapse">
-              <div class="card-body">
-                <input type="radio" id="enclosedstandard" name="selection" value="Enclosed Standard">
-                <label for="enclosedstandard">Standard $<%= enclosedstandard %></label>
-                <label>Deliver By: <%= standardDeliverBy %></label>
-                <br />
+      </div>
+</div>
+<!-- Hidden for now -->
+<div style="visibility: hidden;" id="enclosedBody" class="card-deck mb-3 text-center">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Enclosed Carrier</h4>
+    </div>
+    <div class="card-body">
+      <h1 class="card-title pricing-card-title">
+        $<%= enclosedstandard %><small class="text-muted"></small>
+      </h1>
+      <ul class="list mt-3 mb-4">
+        <li>Pick-up date is within a 2-3 days.</li>
+        <li>Shipping time is between 4-5 days.</li>
+        <li>
+          Choose this option to schedule a time for a pick-up and
+          delivery.
+        </li>
+      </ul>
+      <button type="button" class="btn btn-secondary btn-lg btn-block" id="choose-enclosed-button"
+        data-toggle="collapse" data-target="#enclosedcollapse" aria-expanded="false" aria-controls="enclosedcollapse">
+        Choose
+      </button>
+    </div>
+    <div class="collapse" id="enclosedcollapse">
+      <div class="card-body">
+        <input type="radio" id="enclosedstandard" name="selection" value="Enclosed Standard" />
+        <label for="enclosedstandard">Standard $<%= enclosedstandard %></label>
+        <label>Deliver By: <%= standardDeliverBy %></label>
+        <br />
 
-                <input type="radio" id="enclosedpremium" name="selection" value="Enclosed Premium">
-                <label for="enclosedpremium">Premium $<%= enclosedpremium %></label>
-                <label>Deliver By: <%= premiumDeliverBy %></label>
-                <br />
+        <input type="radio" id="enclosedpremium" name="selection" value="Enclosed Premium" />
+        <label for="enclosedpremium">Premium $<%= enclosedpremium %></label>
+        <label>Deliver By: <%= premiumDeliverBy %></label>
+        <br />
 
-                <input type="radio" id="enclosedexpress" name="selection" value="Enclosed Express">
-                <label for="enclosedexpress">Express $<%= enclosedexpress %></label>
-                <label>Deliver By: <%= expressDeliverBy %></label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="proceed-to-summary">
-          <button class="btn btn-primary btn-lg" type="submit" class="proceed-to-summary-button btn btn-lg"
-            id="summary-button">
-            Proceed to Summary
-          </button>
-        </div>
-    </form>
-
-  </body>
+        <input type="radio" id="enclosedexpress" name="selection" value="Enclosed Express" />
+        <label for="enclosedexpress">Express $<%= enclosedexpress %></label>
+        <label>Deliver By: <%= expressDeliverBy %></label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="proceed-to-summary">
+  <button class="btn btn-primary btn-lg" type="submit" class="proceed-to-summary-button btn btn-lg" id="summary-button">
+    Proceed to Summary
+  </button>
+</div>
+</form>
+</body>
 </div>
 <%- include("footer") -%>

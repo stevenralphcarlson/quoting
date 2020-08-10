@@ -248,9 +248,6 @@ app.post("/quote", function (req, res) {
       ssn.to = formDestination;
       ssn.vehicle = vehicle;
 
-      // Price difference for upgrade options
-      let upgradeToEnclosed = enclosedstandard - openstandard;
-
       res.render("quote", {
         locationData: distanceResponse.data,
         quoteMiles: formMiles,
@@ -272,7 +269,6 @@ app.post("/quote", function (req, res) {
         premiumDeliverBy: premiumDeliverBy,
         expressDeliverBy: expressDeliverBy,
         vehicle: vehicle,
-        upgradeToEnclosed: upgradeToEnclosed,
       });
     } catch (error) {
       console.log(error.response.body);
