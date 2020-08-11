@@ -75,6 +75,10 @@ label {
   border: none;
 }
 
+.link:hover {
+  text-decoration: underline;
+}
+
 .proceed-to-checkout {
   margin: 0;
   text-align: center;
