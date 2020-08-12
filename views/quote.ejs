@@ -74,6 +74,7 @@
             type="button"
             class="btn btn-lg btn-block btn-outline-primary"
             style="bottom: 1rem;"
+            id="continueToOpen"
           >
             Select Open Trailer
           </button>
@@ -97,7 +98,7 @@
             An 'Enclosed Trailer' is a trailer that protects from the elements.
             See the image for an example.
           </p>
-          <h4>Upgrade to 'Enclosed Trailer' for an additional</h4>
+          <h6>Upgrade to 'Enclosed Trailer' for an additional</h6>
           <h1 class="card-title pricing-card-title">
             $<%= enclosedstandard - openstandard %><small
               class="text-muted"
@@ -113,96 +114,129 @@
           </button>
         </div>
       </div>
-
-      <div class="card mb-4 shadow-sm">
-        <button
-          type="button"
-          class="btn btn-lg btn-primary"
-          id="selectEnclosed"
-        >
-          Select Enclosed Carrier
-        </button>
-        <br />
-        <input
-          type="checkbox"
-          id="cbAcceptRestrictions"
-          name="cbAcceptRestrictions"
-        />
-        <label for="cbAcceptRestrictions">Accept Restrictions</label> |
-        <button disabled id="continueToOpen" type="button" class="link">
-          Continue with Open Carrier
-        </button>
-      </div>
     </div>
+    <!-- <input
+      type="checkbox"
+      id="cbAcceptRestrictions"
+      name="cbAcceptRestrictions"
+    />
+    <label for="cbAcceptRestrictions">Accept Restrictions</label> |
+    <button disabled id="continueToOpen" type="button" class="link">
+      Continue with Open Carrier
+    </button> -->
+
     <div id="part2">
-      <div id="openShipping">
-        <div class="card-body">
-          <input
-            type="radio"
-            id="openstandard"
-            name="selection"
-            value="Open Standard"
-          />
-          <label for="openstandard">Standard $<%= openstandard %></label>
-          <label>Deliver By: <%= standardDeliverBy %></label>
-          <br />
-
-          <input
-            type="radio"
-            id="openpremium"
-            name="selection"
-            value="Open Premium"
-          />
-          <label for="openpremium">Premium $<%= openpremium %></label>
-          <label>Deliver By: <%= premiumDeliverBy %></label>
-          <br />
-
-          <input
-            type="radio"
-            id="openexpress"
-            name="selection"
-            value="Open Express"
-          />
-          <label for="openexpress">Express $<%= openexpress %></label>
-          <label>Deliver By: <%= expressDeliverBy %></label>
+        <div class="card-deck mb-3 text-center" id="openShipping">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Standard</h4>
+            </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">
+                  <input
+                    type="radio"
+                    id="openstandard"
+                    name="selection"
+                    value="Open Standard"
+                  />
+                  <label for="openstandard">$<%= openstandard %></label>
+                </h1>  
+                <label>Deliver By: <%= standardDeliverBy %></label>
+              </div>
+          </div>
+          <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Premium</h4>
+            </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">
+                  <input
+                  type="radio"
+                  id="openpremium"
+                  name="selection"
+                  value="Open Premium"
+                  />
+                  <label for="openpremium">$<%= openpremium %></label>
+                </h1>
+                <label>Deliver By: <%= premiumDeliverBy %></label>
+              </div>
+          </div>
+          <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Express</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">
+                <input
+                type="radio"
+                id="openexpress"
+                name="selection"
+                value="Open Express"
+                />
+                <label for="openexpress">Express $<%= openexpress %></label>
+              </h1>  
+                <label>Deliver By: <%= expressDeliverBy %></label>
+            </div>
+          </div>    
+        </div>
+        <div class="container">
+          <div class="card-deck mb-3 text-center" id="enclosedShipping">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Standard</h4>
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title pricing-card-title">
+                    <input
+                    type="radio"
+                    id="enclosedstandard"
+                    name="selection"
+                    value="Enclosed Standard"
+                    />
+                    <label for="enclosedstandard"
+                      >$<%= enclosedstandard %></label
+                    >
+                  </h1>
+                  <label>Deliver By: <%= standardDeliverBy %></label>
+                </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Premium</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">
+                  <input
+                    type="radio"
+                    id="enclosedpremium"
+                    name="selection"
+                    value="Enclosed Premium"
+                  />
+                  <label for="enclosedpremium">$<%= enclosedpremium %></label>
+                </h1>
+                <label>Deliver By: <%= premiumDeliverBy %></label>
+              </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Express</h4>
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">
+                  <input
+                    type="radio"
+                    id="enclosedexpress"
+                    name="selection"
+                    value="Enclosed Express"
+                  />
+                  <label for="enclosedexpress">$<%= enclosedexpress %></label>
+                </h1>
+                <label>Deliver By: <%= expressDeliverBy %></label>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div id="enclosedShipping">
-        <div class="card-body">
-          <input
-            type="radio"
-            id="enclosedstandard"
-            name="selection"
-            value="Enclosed Standard"
-          />
-          <label for="enclosedstandard"
-            >Standard $<%= enclosedstandard %></label
-          >
-          <label>Deliver By: <%= standardDeliverBy %></label>
-          <br />
-
-          <input
-            type="radio"
-            id="enclosedpremium"
-            name="selection"
-            value="Enclosed Premium"
-          />
-          <label for="enclosedpremium">Premium $<%= enclosedpremium %></label>
-          <label>Deliver By: <%= premiumDeliverBy %></label>
-          <br />
-
-          <input
-            type="radio"
-            id="enclosedexpress"
-            name="selection"
-            value="Enclosed Express"
-          />
-          <label for="enclosedexpress">Express $<%= enclosedexpress %></label>
-          <label>Deliver By: <%= expressDeliverBy %></label>
-        </div>
-      </div>
-
       <div class="proceed-to-summary">
         <button
           class="btn btn-primary btn-lg"
