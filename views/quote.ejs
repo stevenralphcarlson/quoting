@@ -43,69 +43,63 @@
     });
   });
 </script>
-<div class="container-fluid">
-  <body>
+
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 id="header" class="pricing-header display-4">Pricing Options</h1>
-      <!-- <div class="card order-summary">
-        <div class="card-body">
-          <h2 class="card-title">Order Summary</h2>
-          <ul>
-            <li><strong>Origin:</strong> <%= quoteOrigin %>.</li>
-            <li><strong>Destination:</strong> <%= quoteDestination %>.</li>
-            <li><strong>Miles:</strong> <%= distance %>.</li>
-            <li><strong>Vehicle:</strong> <%= vehicleInformation %>.</li>
-            <li><strong>Date Available:</strong> <%= dateAvailable %>.</li>
-          </ul>
-        </div>
-      </div> -->
     </div>
     <form action="/summary" method="POST" id="theForm">
       <div class="container">
-        <div id="part1">
-          <div class="row">
+        <div class="card-deck mb-3 text-center" id="part1">
+          <div class="card mb-4 shadow-sm">
             <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Select an option</h4>
+              <h4 class="my-0 font-weight-normal">Open Trailer</h4>
             </div>
             <div class="card-body">
-              <div class="col-sm">
-                <!-- Open Trailer Image -->
-                <div class="openTrailerImage">
-                  <img
-                    src="/images/openTrailer.jpeg"
-                    alt="Open Car Trailer"
-                    style="width: 50%; border: 2px solid lightgray;"
-                  />
-                </div>
-                <p>
-                  An 'Open Trailer' is a trailer that is open and exposed to the
-                  elements. See the image for an example.
-                </p>
-                <h1 class="card-title pricing-card-title">
-                  $<%= openstandard %><small class="text-muted"></small>
-                </h1>
+              
+              <!-- Open Trailer Image -->
+              <div class="openTrailerImage">
+                <img
+                  src="/images/openTrailer.jpeg"
+                  alt="Open Car Trailer"
+                  style="width: 75%; border: 2px solid lightgray;"
+                />
               </div>
-              <div class="col-sm">
-                <!-- TODO: Enlcosed Trailer Image -->
-                <div class="openTrailerImage">
-                  <img
-                    src="/images/openTrailer.jpeg"
-                    alt="Enclosed Car Trailer"
-                    style="width: 50%; border: 2px solid lightgray;"
-                  />
-                </div>
-                <p>
-                  An 'Enclosed Trailer' is a trailer that protects from the
-                  elements. See the image for an example.
-                </p>
-                <h1 class="card-title pricing-card-title">
-                  Upgrade for $<%= enclosedstandard - openstandard %><small
-                    class="text-muted"
-                  ></small>
-                </h1>
-              </div>
+              <p style="margin-top: 2rem;">
+                An 'Open Trailer' is a trailer that is open and exposed to the
+                elements. See the image for an example.
+              </p>
+              <h1 class="card-title pricing-card-title">
+                $<%= openstandard %><small class="text-muted"></small>
+              </h1>
+              <button type="button" class="btn btn-lg btn-block btn-outline-primary" style="bottom: 1rem;">Select Open Trailer</button>
             </div>
           </div>
+              <div class="card mb-4 shadow-sm">
+                <!-- Enlcosed Trailer Image -->
+                <div class="card-header enclosedTrailerImage">
+                  <h4 class="my-0 font-weight-normal">Enclosed Trailer</h4>
+                </div>
+                  <div class="card-body">
+                    <div>
+                      <img
+                        src="/images/s1gEnclosed.png"
+                        alt="Enclosed Car Trailer"
+                        style="width: 75%; height: 100%; border: 2px solid lightgray;"
+                      />
+                    </div>
+                    <p style="margin-top: 2rem;">
+                      An 'Enclosed Trailer' is a trailer that protects from the
+                      elements. See the image for an example.
+                    </p>
+                    <h4>Upgrade to 'Enclosed Trailer' for an additional</h4>
+                    <h1 class="card-title pricing-card-title">
+                      $<%= enclosedstandard - openstandard %><small
+                        class="text-muted"
+                      ></small>
+                    </h1>
+                    <button type="button" class="btn btn-lg btn-block btn-primary">Select Enclosed Trailer</button>
+                  </div>
+              </div>
           <div class="card mb-4 shadow-sm">
             <button
               type="button"
@@ -212,6 +206,5 @@
         </div>
       </div>
     </form>
-  </body>
-</div>
+
 <%- include("footer") -%>

@@ -115,11 +115,6 @@ label {
   opacity: 80%;
 }
 
-.jumbotron {
-  font-family: "Roboto", sans-serif;
-  margin-top: 6rem;
-}
-
 .price-button {
   background-color: #00538b;
   color: white;
@@ -139,15 +134,4 @@ label {
   width: 100%;
   margin: auto;
   text-align: center;
-}
-
-.order-summary {
-  float: left;
-  text-align: justify;
-  margin-top: 1.5rem;
-  margin-left: 5%;
-  width: 25%;
-  font-size: 18px;
-  background-color: whitesmoke;
-  box-shadow: 2px 2px lightgray;
 }
