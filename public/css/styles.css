@@ -21,6 +21,10 @@ label {
   font-size: 20px;
 }
 
+button {
+  background-color: #00538b;
+}
+
 .logo {
   widows: 100px;
   height: 75px;
@@ -134,4 +138,11 @@ label {
   width: 100%;
   margin: auto;
   text-align: center;
+}
+
+.checkout-summary {
+  position: relative;
+  margin-top: 200px;
+  text-align: center;
+  top: 50%;
 }

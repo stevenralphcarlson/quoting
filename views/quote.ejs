@@ -44,167 +44,176 @@
   });
 </script>
 
-    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 id="header" class="pricing-header display-4">Pricing Options</h1>
-    </div>
-    <form action="/summary" method="POST" id="theForm">
-      <div class="container">
-        <div class="card-deck mb-3 text-center" id="part1">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Open Trailer</h4>
-            </div>
-            <div class="card-body">
-              
-              <!-- Open Trailer Image -->
-              <div class="openTrailerImage">
-                <img
-                  src="/images/openTrailer.jpeg"
-                  alt="Open Car Trailer"
-                  style="width: 75%; border: 2px solid lightgray;"
-                />
-              </div>
-              <p style="margin-top: 2rem;">
-                An 'Open Trailer' is a trailer that is open and exposed to the
-                elements. See the image for an example.
-              </p>
-              <h1 class="card-title pricing-card-title">
-                $<%= openstandard %><small class="text-muted"></small>
-              </h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary" style="bottom: 1rem;">Select Open Trailer</button>
-            </div>
-          </div>
-              <div class="card mb-4 shadow-sm">
-                <!-- Enlcosed Trailer Image -->
-                <div class="card-header enclosedTrailerImage">
-                  <h4 class="my-0 font-weight-normal">Enclosed Trailer</h4>
-                </div>
-                  <div class="card-body">
-                    <div>
-                      <img
-                        src="/images/s1gEnclosed.png"
-                        alt="Enclosed Car Trailer"
-                        style="width: 75%; height: 100%; border: 2px solid lightgray;"
-                      />
-                    </div>
-                    <p style="margin-top: 2rem;">
-                      An 'Enclosed Trailer' is a trailer that protects from the
-                      elements. See the image for an example.
-                    </p>
-                    <h4>Upgrade to 'Enclosed Trailer' for an additional</h4>
-                    <h1 class="card-title pricing-card-title">
-                      $<%= enclosedstandard - openstandard %><small
-                        class="text-muted"
-                      ></small>
-                    </h1>
-                    <button type="button" class="btn btn-lg btn-block btn-primary">Select Enclosed Trailer</button>
-                  </div>
-              </div>
-          <div class="card mb-4 shadow-sm">
-            <button
-              type="button"
-              class="btn btn-lg btn-primary"
-              id="selectEnclosed"
-            >
-              Select Enclosed Carrier
-            </button>
-            <br />
-            <input
-              type="checkbox"
-              id="cbAcceptRestrictions"
-              name="cbAcceptRestrictions"
-            />
-            <label for="cbAcceptRestrictions">Accept Restrictions</label> |
-            <button disabled id="continueToOpen" type="button" class="link">
-              Continue with Open Carrier
-            </button>
-          </div>
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 id="header" class="pricing-header display-4">Pricing Options</h1>
+</div>
+<form action="/summary" method="POST" id="theForm">
+  <div class="container">
+    <div class="card-deck mb-3 text-center" id="part1">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Open Trailer</h4>
         </div>
-        <div id="part2">
-          <div id="openShipping">
-            <div class="card-body">
-              <input
-                type="radio"
-                id="openstandard"
-                name="selection"
-                value="Open Standard"
-              />
-              <label for="openstandard">Standard $<%= openstandard %></label>
-              <label>Deliver By: <%= standardDeliverBy %></label>
-              <br />
-
-              <input
-                type="radio"
-                id="openpremium"
-                name="selection"
-                value="Open Premium"
-              />
-              <label for="openpremium">Premium $<%= openpremium %></label>
-              <label>Deliver By: <%= premiumDeliverBy %></label>
-              <br />
-
-              <input
-                type="radio"
-                id="openexpress"
-                name="selection"
-                value="Open Express"
-              />
-              <label for="openexpress">Express $<%= openexpress %></label>
-              <label>Deliver By: <%= expressDeliverBy %></label>
-            </div>
+        <div class="card-body">
+          <!-- Open Trailer Image -->
+          <div class="openTrailerImage">
+            <img
+              src="/images/openTrailer.jpeg"
+              alt="Open Car Trailer"
+              style="width: 75%; border: 2px solid lightgray;"
+            />
           </div>
-
-          <div id="enclosedShipping">
-            <div class="card-body">
-              <input
-                type="radio"
-                id="enclosedstandard"
-                name="selection"
-                value="Enclosed Standard"
-              />
-              <label for="enclosedstandard"
-                >Standard $<%= enclosedstandard %></label
-              >
-              <label>Deliver By: <%= standardDeliverBy %></label>
-              <br />
-
-              <input
-                type="radio"
-                id="enclosedpremium"
-                name="selection"
-                value="Enclosed Premium"
-              />
-              <label for="enclosedpremium"
-                >Premium $<%= enclosedpremium %></label
-              >
-              <label>Deliver By: <%= premiumDeliverBy %></label>
-              <br />
-
-              <input
-                type="radio"
-                id="enclosedexpress"
-                name="selection"
-                value="Enclosed Express"
-              />
-              <label for="enclosedexpress"
-                >Express $<%= enclosedexpress %></label
-              >
-              <label>Deliver By: <%= expressDeliverBy %></label>
-            </div>
-          </div>
-
-          <div class="proceed-to-summary">
-            <button
-              class="btn btn-primary btn-lg"
-              type="submit"
-              class="proceed-to-summary-button btn btn-lg"
-              id="summary-button"
-            >
-              Proceed to Summary
-            </button>
-          </div>
+          <p style="margin-top: 2rem;">
+            An 'Open Trailer' is a trailer that is open and exposed to the
+            elements. See the image for an example.
+          </p>
+          <h1 class="card-title pricing-card-title">
+            $<%= openstandard %><small class="text-muted"></small>
+          </h1>
+          <button
+            type="button"
+            class="btn btn-lg btn-block btn-outline-primary"
+            style="bottom: 1rem;"
+          >
+            Select Open Trailer
+          </button>
         </div>
       </div>
-    </form>
+
+      <div class="card mb-4 shadow-sm">
+        <!-- Enlcosed Trailer Image -->
+        <div class="card-header enclosedTrailerImage">
+          <h4 class="my-0 font-weight-normal">Enclosed Trailer</h4>
+        </div>
+        <div class="card-body">
+          <div>
+            <img
+              src="/images/s1gEnclosed.png"
+              alt="Enclosed Car Trailer"
+              style="width: 75%; height: 100%; border: 2px solid lightgray;"
+            />
+          </div>
+          <p style="margin-top: 2rem;">
+            An 'Enclosed Trailer' is a trailer that protects from the elements.
+            See the image for an example.
+          </p>
+          <h4>Upgrade to 'Enclosed Trailer' for an additional</h4>
+          <h1 class="card-title pricing-card-title">
+            $<%= enclosedstandard - openstandard %><small
+              class="text-muted"
+            ></small>
+          </h1>
+          <button
+            type="button"
+            class="btn btn-lg btn-block btn-primary"
+            id="selectEnclosed"
+          >
+            Select Enclosed Trailer
+          </button>
+        </div>
+      </div>
+
+      <div class="card mb-4 shadow-sm">
+        <button
+          type="button"
+          class="btn btn-lg btn-primary"
+          id="selectEnclosed"
+        >
+          Select Enclosed Carrier
+        </button>
+        <br />
+        <input
+          type="checkbox"
+          id="cbAcceptRestrictions"
+          name="cbAcceptRestrictions"
+        />
+        <label for="cbAcceptRestrictions">Accept Restrictions</label> |
+        <button disabled id="continueToOpen" type="button" class="link">
+          Continue with Open Carrier
+        </button>
+      </div>
+    </div>
+    <div id="part2">
+      <div id="openShipping">
+        <div class="card-body">
+          <input
+            type="radio"
+            id="openstandard"
+            name="selection"
+            value="Open Standard"
+          />
+          <label for="openstandard">Standard $<%= openstandard %></label>
+          <label>Deliver By: <%= standardDeliverBy %></label>
+          <br />
+
+          <input
+            type="radio"
+            id="openpremium"
+            name="selection"
+            value="Open Premium"
+          />
+          <label for="openpremium">Premium $<%= openpremium %></label>
+          <label>Deliver By: <%= premiumDeliverBy %></label>
+          <br />
+
+          <input
+            type="radio"
+            id="openexpress"
+            name="selection"
+            value="Open Express"
+          />
+          <label for="openexpress">Express $<%= openexpress %></label>
+          <label>Deliver By: <%= expressDeliverBy %></label>
+        </div>
+      </div>
+
+      <div id="enclosedShipping">
+        <div class="card-body">
+          <input
+            type="radio"
+            id="enclosedstandard"
+            name="selection"
+            value="Enclosed Standard"
+          />
+          <label for="enclosedstandard"
+            >Standard $<%= enclosedstandard %></label
+          >
+          <label>Deliver By: <%= standardDeliverBy %></label>
+          <br />
+
+          <input
+            type="radio"
+            id="enclosedpremium"
+            name="selection"
+            value="Enclosed Premium"
+          />
+          <label for="enclosedpremium">Premium $<%= enclosedpremium %></label>
+          <label>Deliver By: <%= premiumDeliverBy %></label>
+          <br />
+
+          <input
+            type="radio"
+            id="enclosedexpress"
+            name="selection"
+            value="Enclosed Express"
+          />
+          <label for="enclosedexpress">Express $<%= enclosedexpress %></label>
+          <label>Deliver By: <%= expressDeliverBy %></label>
+        </div>
+      </div>
+
+      <div class="proceed-to-summary">
+        <button
+          class="btn btn-primary btn-lg"
+          type="submit"
+          class="proceed-to-summary-button btn btn-lg"
+          id="summary-button"
+        >
+          Proceed to Summary
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
 
 <%- include("footer") -%>
