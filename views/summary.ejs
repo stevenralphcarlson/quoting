@@ -31,21 +31,20 @@
       <div class="card-header">
         <h4 class="my-0 font-weight-normal">Checkout Summary</h4>
       </div>
-      <div class="card-body">
+      <div class="card-body summary-body">
         <h1 class="card-title pricing-card-title">Your total delivery cost will be
           <strong>$<%= selectedPrice %></strong></h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li class=>Vehicle <strong><%= vehicle %></strong></li>
-            <li class=>From <strong><%= from %></strong></li>
-            <li class=>To <strong><%= to %></strong></li>
-            <li class=>Service <strong><%= service %></strong></li>
-          </ul>   
-          <div class="proceed-to-checkout">
-            <button class="btn btn-primary btn-lg proceed-to-checkout-button"
-              id="checkout-button">
-              Book Now
-            </button> 
-          </div>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li class=>Vehicle <strong><%= vehicle %></strong></li>
+          <li class=>From <strong><%= from %></strong></li>
+          <li class=>To <strong><%= to %></strong></li>
+          <li class=>Service <strong><%= service %></strong></li>
+        </ul>
+        <div class="proceed-to-checkout">
+          <button class="btn btn-primary btn-lg proceed-to-checkout-button" id="checkout-button">
+            Book Now
+          </button>
+        </div>
       </div>
     </div>
   </div>
