@@ -3,7 +3,9 @@
 }
 
 body {
-  background-color: rgba(211, 211, 211, 0.274);
+  background-color: rgba(211, 211, 211, 0.61);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1 {
@@ -151,8 +153,14 @@ button {
   opacity: 80%;
 }
 
+
 .select-enclosed-trailer:hover {
   opacity: 80%;
 }
-/* Footer */
 
+/* Summary */
+
+
+
+
+/* Footer */
