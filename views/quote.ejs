@@ -98,9 +98,8 @@
             An 'Enclosed Trailer' is a trailer that protects from the elements.
             See the image for an example.
           </p>
-          <h6>Upgrade to 'Enclosed Trailer' for an additional</h6>
           <h1 class="card-title pricing-card-title">
-            $<%= enclosedstandard - openstandard %><small
+            $<%= enclosedstandard %><small
               class="text-muted"
             ></small>
           </h1>
@@ -126,8 +125,9 @@
     </button> -->
 
     <div id="part2">
+      <p class="lead">Upgrade to one of the following service types to increase the shipment speed.</p>
         <div class="card-deck mb-3 text-center" id="openShipping">
-          <div class="card mb-4 shadow-sm">
+          <!-- <div class="card mb-4 shadow-sm">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Standard</h4>
             </div>
@@ -143,7 +143,8 @@
                 </h1>  
                 <label>Deliver By: <%= standardDeliverBy %></label>
               </div>
-          </div>
+          </div> -->
+
           <div class="card mb-4 shadow-sm">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Premium</h4>
@@ -158,7 +159,7 @@
                   />
                   <label style="font-size: 50px;" for="openpremium">$<%= openpremium %></label>
                 </h1>
-                <label>Deliver By: <%= premiumDeliverBy %></label>
+                <label">Deliver By: <%= premiumDeliverBy %></label>
               </div>
           </div>
           <div class="card mb-4 shadow-sm">
@@ -175,9 +176,25 @@
                 />
                 <label style="font-size: 50px;" for="openexpress">$<%= openexpress %></label>
               </h1>  
-                <label>Deliver By: <%= expressDeliverBy %></label>
+                <label;">Deliver By: <%= expressDeliverBy %></label>
             </div>
           </div>    
+        </div>
+        <div class="row">
+          <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted">Your current selection</span>
+            </h4>
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between 1h-condensed">
+                <div>
+                  <h6 class="my-0">Service Level</h6>
+                  <small class="text-muted">Standard</small>
+                </div>
+                <span class="text-muted">$<%= openstandard %></span>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="container">
           <div class="card-deck mb-3 text-center" id="enclosedShipping">
