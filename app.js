@@ -26,6 +26,10 @@ app.get("/thankyou", function (req, res) {
   res.render("thankyou");
 });
 
+app.get("/customer-contact", function (req, res) {
+  res.render("customer-contact");
+});
+
 function getPrice(selection, ssn) {
   let price = ssn.openstandard;
   switch (selection) {

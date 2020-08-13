@@ -147,5 +147,12 @@ button {
   top: 50%;
 }
 
+.select-open-trailer:hover {
+  opacity: 80%;
+}
+
+.select-enclosed-trailer:hover {
+  opacity: 80%;
+}
 /* Footer */
 
