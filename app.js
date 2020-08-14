@@ -1,6 +1,7 @@
 const express = require("express");
 var session = require("express-session");
 const axios = require("axios");
+const configuration = require("./public/js/configuration");
 
 const app = express();
 const bodyParser = require("body-parser");
@@ -55,12 +56,28 @@ function getPrice(selection, ssn) {
   return price;
 }
 
+app.get("/summary", function (req, res) {
+  const ssn = req.session;
+
+  // TODO: Send email of cancelled request
+
+  res.render("summary", {
+    session_id: ssn.sessionId,
+    selectedPrice: ssn.selectedPrice,
+    stripePublishableKey: configuration.STRIPE_API_PUBLISHABLE_KEY,
+    vehicle: ssn.vehicle,
+    from: ssn.from,
+    to: ssn.to,
+    miles: ssn.miles,
+    service: ssn.service,
+    basePrice: ssn.basePrice,
+  });
+});
+
 app.post("/summary", async (req, res) => {
   const ssn = req.session;
   const selectedPrice = getPrice(req.body.selection, ssn);
-  const stripe = require("stripe")(
-    "sk_test_51H6GmsA0iFQODPbSK9Bx8rBmUPhX8juvv8Efk22Vyt5Rvi8qVPD79oY6jJbNbHCCuQ9YMMZ6ov0s92wJBbQWxqYR00he9PI0Ap"
-  );
+  const stripe = require("stripe")(configuration.STRIPE_API_SECRET_KEY);
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
@@ -76,17 +93,30 @@ app.post("/summary", async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: "https://example.com/success?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: "http://localhost:3000/summary/cancel",
+    success_url: configuration.APP_BASE_URL + "thankyou",
+    cancel_url: configuration.APP_BASE_URL + "summary",
   });
 
+  ssn.sessionId = session.id;
+  ssn.selectedPrice = selectedPrice;
+  ssn.service = req.body.selection;
+
+  if (req.body.selection.includes("Open")) {
+    ssn.basePrice = ssn.openstandard;
+  } else {
+    ssn.basePrice = ssn.enclosedstandard;
+  }
+
   res.render("summary", {
-    session_id: session.id,
-    selectedPrice: selectedPrice,
+    session_id: ssn.sessionId,
+    selectedPrice: ssn.selectedPrice,
+    stripePublishableKey: configuration.STRIPE_API_PUBLISHABLE_KEY,
     vehicle: ssn.vehicle,
     from: ssn.from,
     to: ssn.to,
-    service: req.body.selection,
+    miles: ssn.miles,
+    service: ssn.service,
+    basePrice: ssn.basePrice,
   });
 });
 
@@ -242,7 +272,6 @@ app.post("/quote", function (req, res) {
 
       const ssn = req.session;
       ssn.openstandard = openstandard;
-      ssn.openstandard = openstandard;
       ssn.openpremium = openpremium;
       ssn.openexpress = openexpress;
       ssn.enclosedstandard = enclosedstandard;
@@ -251,16 +280,14 @@ app.post("/quote", function (req, res) {
       ssn.from = formOrigin;
       ssn.to = formDestination;
       ssn.vehicle = vehicle;
+      ssn.miles = formMiles;
 
       res.render("quote", {
         locationData: distanceResponse.data,
         quoteMiles: formMiles,
         quoteOrigin: formOrigin,
         distance,
-        distance,
         dateAvailable,
-        dateAvailable,
-        vehicleInformation,
         vehicleInformation,
         quoteDestination: formDestination,
         openstandard: openstandard,
