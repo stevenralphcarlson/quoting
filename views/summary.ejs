@@ -4,17 +4,25 @@
 <script type="text/javascript">
   $(document).ready(function () {
     // Stripe
-    const session_id = "<%= session_id %>";
-    console.log(session_id);
+    const sessionId = "<%= session_id %>";
+    const stripePublishableKey = "<%= stripePublishableKey %>";
     var stripe = Stripe(
-      "pk_test_51H6GmsA0iFQODPbSpKc85KtZjTh2vzZoQmZoN9guzft9ZnXcaYQ4MwBToU6qRruL6lxT0kkmuJ8MYi7OPihjnokl00IMSk0JYf"
+      stripePublishableKey
     );
     var checkoutButton = document.getElementById("checkout-button");
 
     checkoutButton.addEventListener("click", function () {
+      // Check fields are filled out before sending to Stripe
+      if(!$("#fname").val() || !$("#lname").val() || !$("#email").val()){
+        alert("All fields must be filled out.")
+        return;
+      }
+      
+      // TODO: Collect information
+
       stripe
         .redirectToCheckout({
-          sessionId: session_id,
+          sessionId: sessionId,
         })
         .then(function (result) {
           console.log(result);
@@ -32,14 +40,35 @@
         <h4 class="my-0 font-weight-normal">Checkout Summary</h4>
       </div>
       <div class="card-body summary-body">
-        <h1 class="card-title pricing-card-title">Your total delivery cost will be
+        <h1 class="card-title pricing-card-title">Base delivery cost:
+          <strong>$<%= basePrice %></strong></h1>
+        <h1 class="card-title pricing-card-title">Shipping upgrade cost:
+          <strong>$<%= selectedPrice - basePrice %></strong></h1>
+        <h1 class="card-title pricing-card-title">Total cost:
           <strong>$<%= selectedPrice %></strong></h1>
         <ul class="list-unstyled mt-3 mb-4">
           <li class=>Vehicle <strong><%= vehicle %></strong></li>
           <li class=>From <strong><%= from %></strong></li>
           <li class=>To <strong><%= to %></strong></li>
+          <li class=>Total Distance <strong><%= miles %></strong></li>
           <li class=>Service <strong><%= service %></strong></li>
         </ul>
+        <div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="fname">First Name:</label>
+              <input type="text" class="form-control" id="fname">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="lname">Last Name:</label>
+              <input type="text" class="form-control" id="lname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" class="form-control" id="email">
+          </div>
+        </div>
         <div class="proceed-to-checkout">
           <button class="btn btn-primary btn-lg proceed-to-checkout-button" id="checkout-button">
             Book Now
@@ -48,5 +77,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 <%- include("footer") -%>
