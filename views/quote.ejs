@@ -109,25 +109,21 @@
     </button> -->
 
     <div id="part2">
-      <p class="lead">Upgrade to one of the following service types to increase the shipment speed.</p>
+      <p class="lead">Upgrade to one of the following service types to increase the shipment speed. Or keep your current
+        selection.</p>
       <div class="card-deck mb-3 text-center" id="openShipping">
-        <!--   <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Standard</h4>
-            </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title">
-                  <input
-                    type="radio"
-                    id="openstandard"
-                    name="selection"
-                    value="Open Standard"
-                  />
-                  <label style="font-size: 50px;" for="openstandard">$<%= openstandard %></label>
-                </h1>
-                <label>Deliver By: <%= standardDeliverBy %></label>
-              </div>
-          </div> -->
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Standard</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">
+              <input type="radio" id="openstandard" name="selection" value="Open Standard" />
+              <label style="font-size: 50px;" for="openstandard">$<%= openstandard %></label>
+            </h1>
+            <label>Deliver By: <%= standardDeliverBy %></label>
+          </div>
+        </div>
 
         <div class="card mb-4 shadow-sm">
           <div class="card-header">
@@ -138,7 +134,7 @@
               <input type="radio" id="openpremium" name="selection" value="Open Premium" />
               <label style="font-size: 50px;" for="openpremium">$<%= openpremium %></label>
             </h1>
-            <label">Deliver By: <%= premiumDeliverBy %></label>
+            <label>Deliver By: <%= premiumDeliverBy %></label>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -150,10 +146,12 @@
               <input type="radio" id="openexpress" name="selection" value="Open Express" />
               <label style="font-size: 50px;" for="openexpress">$<%= openexpress %></label>
             </h1>
-            <label;">Deliver By: <%= expressDeliverBy %></label>
+            <label>Deliver By: <%= expressDeliverBy %></label>
           </div>
         </div>
       </div>
+
+      <!-- Summary card -->
       <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -166,7 +164,9 @@
                   <li class="list-group-item"><strong>Service: </strong>Standard</li>
                   <li class="list-group-item"><strong>Origin:</strong> <%= quoteOrigin %></li>
                   <li class="list-group-item"><strong>Destination:</strong> <%= quoteDestination %></li>
+                  <li class="list-group-item"><strong>Distance: </strong> <%= distance %> miles</li>
                   <li class="list-group-item"><strong>Vehicle: </strong><%= vehicle %></li>
+                  <li class="list-group-item"><strong>Available Date: </strong><%= dateAvailable %></li>
                   <li class="list-group-item"><strong>Deliver By: </strong> <%= standardDeliverBy %></li>
                   <li class="list-group-item"><strong>Price: </strong>$<%= openstandard %></li>
                 </ul>
@@ -175,6 +175,7 @@
           </ul>
         </div>
       </div>
+
       <div class="container">
         <div class="card-deck mb-3 text-center" id="enclosedShipping">
           <div class="card mb-4 shadow-sm">
