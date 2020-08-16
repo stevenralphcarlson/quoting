@@ -110,7 +110,7 @@
 
     <div id="part2">
       <p class="lead">Upgrade to one of the following service types to increase the shipment speed.</p>
-    <div class="card-deck mb-3 text-center" id="openShipping">
+      <div class="card-deck mb-3 text-center" id="openShipping">
         <!--   <div class="card mb-4 shadow-sm">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Standard</h4>
@@ -162,11 +162,15 @@
           <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between 1h-condensed">
               <div>
-                <h6 class="my-0">Standard</h6>
-                <small class="text-muted">Deliver By: <%= standardDeliverBy %></small>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>Service: </strong>Standard</li>
+                  <li class="list-group-item"><strong>Origin:</strong> <%= quoteOrigin %></li>
+                  <li class="list-group-item"><strong>Destination:</strong> <%= quoteDestination %></li>
+                  <li class="list-group-item"><strong>Vehicle: </strong><%= vehicle %></li>
+                  <li class="list-group-item"><strong>Deliver By: </strong> <%= standardDeliverBy %></li>
+                  <li class="list-group-item"><strong>Price: </strong>$<%= openstandard %></li>
+                </ul>
               </div>
-              <span class="text-muted">$<%= openstandard %></span>
-              <br>
             </li>
           </ul>
         </div>
