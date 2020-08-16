@@ -139,10 +139,10 @@ app.post("/quote", function (req, res) {
   let premiumRateMultiplier = 1.5;
   let expressRateMuiltiplier = 3;
 
-  const vehicle =
-    capitalizeFirstLetter(req.body["car-makes"]) +
-    " " +
-    capitalizeFirstLetter(req.body["car-models"]);
+  const vehicle = req.body["car-makes"] + " " + req.body["car-models"];
+  //   capitalizeFirstLetter(req.body["car-makes"]) +
+  //   " " +
+  //   capitalizeFirstLetter(req.body["car-models"]);
   let origins = req.body.origins;
   let destinations = req.body.destinations;
   let vehicleInformation =
@@ -307,9 +307,9 @@ app.post("/quote", function (req, res) {
   })();
 });
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeFirstLetter(string) {
+//   return string.charAt(0).toUpperCase() + string.slice(1);
+// }
 
 function getFormattedDate(date) {
   var year = date.getFullYear();

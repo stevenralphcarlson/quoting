@@ -23,7 +23,7 @@
 
         // set the minimum date to tomorrow
         var tomorrow = new Date();
-        tomorrow.sethate(new Date().gethate() + 1);
+        tomorrow.setDate(new Date().getDate() + 1);
         document.getElementById("date-available").setAttribute('min', tomorrow.toISOString().split('T')[0]);
 
         //Retrieve autocomplete predictions for origin and destination inputs
@@ -37,10 +37,6 @@
         google.maps.event.addDomListener(window, 'load', initialize);
 
     });
-
-
-          
-   
 </script>
 
 
@@ -89,7 +85,8 @@
             </div>
             <div class="col col-12 col-md-3" style="float: right">
                 <label for="addVehicle">Add vehicle</label>
-                <button type="button" id="add" onclick="Javascript:addRow()" name="addVehicle" value="Add"><i class="fas fa-plus" style="color: white;"></i></button>
+                <button type="button" id="add" onclick="Javascript:addRow()" name="addVehicle" value="Add"><i
+                        class="fas fa-plus" style="color: white;"></i></button>
             </div>
             <div class="container">
                 <table id="myTable" class="table table-dark">
@@ -103,7 +100,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
             </div>
