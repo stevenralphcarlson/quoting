@@ -62,6 +62,10 @@ button {
   border: 2rem;
 }
 
+.table {
+  background-color: #00538b;
+}
+
 /* Quote Page */
 
 .card-header {

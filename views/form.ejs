@@ -23,7 +23,7 @@
 
         // set the minimum date to tomorrow
         var tomorrow = new Date();
-        tomorrow.setDate(new Date().getDate() + 1);
+        tomorrow.sethate(new Date().gethate() + 1);
         document.getElementById("date-available").setAttribute('min', tomorrow.toISOString().split('T')[0]);
 
         //Retrieve autocomplete predictions for origin and destination inputs
@@ -35,7 +35,12 @@
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
+
     });
+
+
+          
+   
 </script>
 
 
@@ -45,7 +50,7 @@
         <p>Fill out the form below to get your vehicle transportation quote today.</p>
     </div>
     <div class="flex-container">
-        <form action="/quote" method="POST" id="theForm">
+        <form action="/quote" method="POST" id="theForm" name="theForm">
             <div class="row destinations-row">
                 <div class="col col-12 col-md-6">
                     <label for="origins">Origin</label>
@@ -61,21 +66,21 @@
 
             <div class="row vehicle-row">
                 <div class="col col-12 col-md-3">
-                    <label for="car-years">Year</label>
-                    <select class="custom-select" id="car-years" name="car-years"></select>
+                    <label for="car_years">Year</label>
+                    <select class="custom-select" id="car-years" name="car_years"></select>
                 </div>
 
                 <div class="col col-12 col-md-3">
-                    <label for="car-makes">Make</label>
-                    <select class="custom-select" id="car-makes" name="car-makes"></select>
+                    <label for="car_makes">Make</label>
+                    <select class="custom-select" id="car-makes" name="car_makes"></select>
                 </div>
                 <div class="col col-12 col-md-3">
-                    <label for="car-models">Model</label>
-                    <select class="custom-select" id="car-models" name="car-models"></select>
+                    <label for="car_models">Model</label>
+                    <select class="custom-select" id="car-models" name="car_models"></select>
                 </div>
                 <div class="col col-12 col-md-3">
-                    <label for="car-model-trims">Body Type</label>
-                    <select class="custom-select" id="car-model-trims" name="car-model-trims"></select>
+                    <label for="car_model_trims">Body Type</label>
+                    <select class="custom-select" id="car-model-trims" name="car_model_trims"></select>
                 </div>
             </div>
             <div class="col col-12 col-md-3 date-available">
@@ -83,46 +88,33 @@
                 <input class="custom-select" type="date" id="date-available" name="date-available" required>
             </div>
             <div class="col col-12 col-md-3" style="float: right">
-                <label for="add-vehicle">Add vehcile</label>
-                <button type="button" name="add-vehicle"><i class="fas fa-plus" style="color: white;"></i></button>
+                <label for="addVehicle">Add vehicle</label>
+                <button type="button" id="add" onclick="Javascript:addRow()" name="addVehicle" value="Add"><i class="fas fa-plus" style="color: white;"></i></button>
             </div>
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Year</th>
-                        <th scope="col">Make</th>
-                        <th scope="col">Model</th>
-                        <th scope="col">Trim</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">2012</th>
-                        <td>Jeep</td>
-                        <td>Ford</td>
-                        <td>Chrysler</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2019</th>
-                        <td>Jeep</td>
-                        <td>Ford</td>
-                        <td>Chrysler</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2020</th>
-                        <td>Wrangler</td>
-                        <td>Bronco</td>
-                        <td>300</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="container">
+                <table id="myTable" class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Trim</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
             <div class="col col-12 form-button">
                 <button class="btn btn-lg get-quote-button" type="submit">Get Quote!</button>
             </div>
     </div>
     </form>
-    <div id="map"></div>
 </div>
 </div>
+
+
 
 <%- include("footer") -%>
