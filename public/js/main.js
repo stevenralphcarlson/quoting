@@ -3,7 +3,7 @@ function addRow() {
     var carYears = document.getElementById("car-years");
     var carMakes = document.getElementById("car-makes");
     var carModels = document.getElementById("car-models");
-    var carTrims = document.getElementById("car-model-trims");
+    // var carTrims = document.getElementById("car-model-trims");
     var table = document.getElementById("myTable");
 
     var rowCount = table.rows.length;
@@ -12,8 +12,8 @@ function addRow() {
     row.insertCell(0).innerHTML= carYears.value;
     row.insertCell(1).innerHTML= carMakes.value;
     row.insertCell(2).innerHTML= carModels.value;
-    row.insertCell(3).innerHTML= carTrims.value;
-    row.insertCell(4).innerHTML= '<input type="button" value="Delete" onclick="Javascript:deleteRow(this)">';
+    // row.insertCell(3).innerHTML= carTrims.value;
+    row.insertCell(3).innerHTML= '<div class="delete-btn-container"><button class="delete-btn" type="button" value="Delete" onclick="Javascript:deleteRow(this)">Delete</button></div>';
 }
 
 function deleteRow(obj) {
@@ -45,3 +45,11 @@ for (var i=0; i<3; i++){
 }
 myTableDiv.appendChild(table);
 };
+
+// Hide Table Header
+$('.hidethis').hide();
+
+// Autoplay Video
+let vid = document.getElementById('video');
+vid.autoplay = true;
+vid.load();

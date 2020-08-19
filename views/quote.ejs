@@ -44,109 +44,96 @@
   });
 </script>
 
-<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<div class="quote-container">
   <h1 id="header" class="pricing-header display-4">Pricing Options</h1>
 </div>
 <form action="/summary" method="POST" id="theForm">
   <div class="container">
     <div class="card-deck mb-3 text-center" id="part1">
-      <div class="card mb-4 shadow-sm">
+      <div class="card">
         <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Open Trailer</h4>
+          <h4 class="card-header-text">Open Trailer</h4>
         </div>
         <div class="card-body">
           <!-- Open Trailer Image -->
-          <div class="openTrailerImage">
-            <img src="/images/openTrailer.jpeg" alt="Open Car Trailer"
-              style="width: 75%; border: 2px solid lightgray;" />
+          <div class="open-trailer-container">
+            <img src="/images/open-trailer.jpg" alt="Open Car Trailer" class="trailer-img" />
           </div>
-          <p style="margin-top: 2rem;">
-            An 'Open Trailer' is a trailer that is open and exposed to the
+          <p class="card-text">
+            An <span class="open-trailer-text">'Open Trailer'</span> is a trailer that is open and exposed to the
             elements. See the image for an example.
           </p>
           <h1 class="card-title pricing-card-title">
             $<%= openstandard %><small class="text-muted"></small>
           </h1>
-          <button type="button" class="btn btn-lg btn-block btn-outline-primary select-open-trailer"
-            style="bottom: 1rem; background-color: #00538b; color: white;" id="continueToOpen">
+          <button type="button" class="btn btn-lg select-trailer-btn" id="continueToOpen">
             Select Open Trailer
           </button>
         </div>
       </div>
 
-      <div class="card mb-4 shadow-sm">
-        <!-- Enlcosed Trailer Image -->
-        <div class="card-header enclosedTrailerImage">
-          <h4 class="my-0 font-weight-normal">Enclosed Trailer</h4>
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-header-text">Enclosed Trailer</h4>
         </div>
         <div class="card-body">
-          <div>
-            <img src="/images/s1gEnclosed.png" alt="Enclosed Car Trailer"
-              style="width: 75%; height: 100%; border: 2px solid lightgray;" />
+          <!-- Enlcosed Trailer Image -->
+          <div class="enclosed-trailer-container">
+            <img src="/images/s1gEnclosed.png" alt="Enclosed Car Trailer" class="trailer-img"/>
           </div>
-          <p style="margin-top: 2rem;">
-            An 'Enclosed Trailer' is a trailer that protects from the elements.
+          <p class="card-text">
+            An <span class="enclosed-trailer-text">'Enclosed Trailer'</span> is a trailer that protects from the elements.
             See the image for an example.
           </p>
           <h1 class="card-title pricing-card-title">
             $<%= enclosedstandard %><small class="text-muted"></small>
           </h1>
-          <button type="button" class="btn btn-lg btn-block btn-primary select-enclosed-trailer" id="selectEnclosed"
-            style="color: white; background-color: #00538b; margin-top: 3rem">
+          <button type="button" class="btn btn-lg select-trailer-btn" id="selectEnclosed">
             Select Enclosed Trailer
           </button>
         </div>
       </div>
     </div>
-    <!-- <input
-      type="checkbox"
-      id="cbAcceptRestrictions"
-      name="cbAcceptRestrictions"
-    />
-    <label for="cbAcceptRestrictions">Accept Restrictions</label> |
-    <button disabled id="continueToOpen" type="button" class="link">
-      Continue with Open Carrier
-    </button> -->
 
     <div id="part2">
-      <p class="lead">Upgrade to one of the following service types to increase the shipment speed. Or keep your current
+      <p class="delivery-sub-title">Upgrade to one of the following service types to increase the shipment speed. Or keep your current
         selection.</p>
       <div class="card-deck mb-3 text-center" id="openShipping">
-        <div class="card mb-4 shadow-sm">
+        <div class="card">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Standard</h4>
+            <h4 class="delivery-option-title">Standard</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">
               <input type="radio" id="openstandard" name="selection" value="Open Standard" />
               <label style="font-size: 50px;" for="openstandard">$<%= openstandard %></label>
             </h1>
-            <label>Deliver By: <%= standardDeliverBy %></label>
+            <label>Deliver By: <span class="deliver-by-text"><%= standardDeliverBy %></span></label>
           </div>
         </div>
 
-        <div class="card mb-4 shadow-sm">
+        <div class="card">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Premium</h4>
+            <h4 class="delivery-option-title">Premium</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">
               <input type="radio" id="openpremium" name="selection" value="Open Premium" />
               <label style="font-size: 50px;" for="openpremium">$<%= openpremium %></label>
             </h1>
-            <label>Deliver By: <%= premiumDeliverBy %></label>
+            <label>Deliver By: <span class="deliver-by-text"><%= premiumDeliverBy %></span></label>
           </div>
         </div>
-        <div class="card mb-4 shadow-sm">
+        <div class="card">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Express</h4>
+            <h4 class="delivery-option-title">Express</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">
               <input type="radio" id="openexpress" name="selection" value="Open Express" />
               <label style="font-size: 50px;" for="openexpress">$<%= openexpress %></label>
             </h1>
-            <label>Deliver By: <%= expressDeliverBy %></label>
+            <label>Deliver By: <span class="deliver-by-text"><%= expressDeliverBy %></span></label>
           </div>
         </div>
       </div>
@@ -155,9 +142,9 @@
       <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your current selection</span>
+            <span class="summary-card-title">Your Current Selection</span>
           </h4>
-          <ul class="list-group mb-3">
+          <ul class="list-group mb-3  summary-card">
             <li class="list-group-item d-flex justify-content-between 1h-condensed">
               <div>
                 <ul class="list-group list-group-flush">
@@ -178,7 +165,7 @@
 
       <div class="container">
         <div class="card-deck mb-3 text-center" id="enclosedShipping">
-          <div class="card mb-4 shadow-sm">
+          <div class="delivery-card">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Standard</h4>
             </div>
@@ -190,7 +177,7 @@
               <label>Deliver By: <%= standardDeliverBy %></label>
             </div>
           </div>
-          <div class="card mb-4 shadow-sm">
+          <div class="delivery-card">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Premium</h4>
             </div>
@@ -202,7 +189,7 @@
               <label>Deliver By: <%= premiumDeliverBy %></label>
             </div>
           </div>
-          <div class="card mb-4 shadow-sm">
+          <div class="delivery-card">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Express</h4>
             </div>
@@ -217,9 +204,8 @@
         </div>
       </div>
     </div>
-    <div class="proceed-to-summary">
-      <button type="submit" class="proceed-to-summary-button btn btn-lg" id="summary-button"
-        style="background-color: #00538b; color: white;">
+    <div class="proceed-to-summary-container">
+      <button type="submit" class="proceed-to-summary-button btn btn-lg" id="summary-button">
         Proceed to Summary
       </button>
     </div>

@@ -41,73 +41,105 @@
 
 
 <div class="container">
-    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="pricing-header display-4">Get a Quote</h1>
-        <p>Fill out the form below to get your vehicle transportation quote today.</p>
+    <div class="pricing-header-container">
+        <!-- Header Text -->
+        <h1 class="pricing-header">Get a Quote</h1>
+        <p class="pricing-sub-header">Fill out the form below to get your vehicle transportation quote today.</p>
     </div>
-    <div class="flex-container">
-        <form action="/quote" method="POST" id="theForm" name="theForm">
+    <!-- Video of Tractor and Trailer -->
+    <div class="video-container">
+        <video src="/images/Select_One_Open.mp4" class="video" id="video" alt="Tractor and trailer looping video"
+            title="Tractor and trailer unloading car and tractor with expandable trailer." loop>
+            <!-- Fallback content if video cannot be played -->
+            <img src="/images/s1gEnclosed.png" alt="Enclosed Car Trailer">
+        </video>
+    </div>
+    <form action="/quote" method="POST" id="theForm" name="theForm">
+        <!-- Origin & Destination -->
+        <div class="container">
             <div class="row destinations-row">
-                <div class="col col-12 col-md-6">
-                    <label for="origins">Origin</label>
-                    <input class="form-control" name="origins" id="origins" type="text" placeholder="Zip or City,St"
-                        required>
+                <!-- Origin -->
+                <div class="col-sm">
+                    <label for="origins" class="originLbl">Origin</label>
+                    <input class="form-control origins" name="origins" id="origins" type="text"
+                        placeholder="Enter an Address" required>
+                    </input>
                 </div>
-                <div class="col col-12 col-md-6">
-                    <label for="destinations">Destination</label>
+                <!-- Destination -->
+                <div class="col-sm">
+                    <label for="destinations" class="destinationLbl">Destination</label>
                     <input class="form-control" name="destinations" id="destinations" type="text"
-                        placeholder="Zip or City,St" required>
+                        placeholder="Enter an Address" required>
+                </div>
+                <!-- Date Available -->
+                <div class="col-sm">
+                    <label for="car-model-trims" class="vehicleLbls">Date Available</label>
+                    <input class="custom-select" type="date" id="date-available" name="date-available" required>
                 </div>
             </div>
+        </div>
+        <div class="container">
+            <div class="row">
 
+            </div>
+        </div>
+        <!-- Vehicle Information -->
+        <div class="container">
             <div class="row vehicle-row">
-                <div class="col col-12 col-md-3">
-                    <label for="car_years">Year</label>
+                <!-- Car Years -->
+                <div class="col-sm">
+                    <label for="car_years" class="vehicleLbls">Year</label>
                     <select class="custom-select" id="car-years" name="car_years"></select>
                 </div>
-
-                <div class="col col-12 col-md-3">
-                    <label for="car_makes">Make</label>
+                <!-- Car Makes -->
+                <div class="col-sm">
+                    <label for="car_makes" class="vehicleLbls">Make</label>
                     <select class="custom-select" id="car-makes" name="car_makes"></select>
                 </div>
-                <div class="col col-12 col-md-3">
-                    <label for="car_models">Model</label>
+                <!-- Car Models -->
+                <div class="col-sm">
+                    <label for="car_models" class="vehicleLbls">Model</label>
                     <select class="custom-select" id="car-models" name="car_models"></select>
                 </div>
-                <div class="col col-12 col-md-3">
-                    <label for="car_model_trims">Body Type</label>
+                <!-- Car Model Trims -->
+                <div class="col-sm">
+                    <label for="car_model_trims" class="vehicleLbls">Body Type</label>
                     <select class="custom-select" id="car-model-trims" name="car_model_trims"></select>
                 </div>
+                <!-- Add Vehicle Button -->
+                <div class="col-sm addVehicle-container" style="margin-top: 40px;">
+                    <label class="addVehicle-text" for="addVehicle">Add Vehicle</label>
+                    <button class="addVehicle" type="button" id="add" onclick="addRow(); addLblElement();" name="addVehicle"
+                        value="Add"><i class="fas fa-plus" style="color: white;"></i></button>
+                </div>
             </div>
-            <div class="col col-12 col-md-3 date-available">
-                <label for="car-model-trims">Date Available</label>
-                <input class="custom-select" type="date" id="date-available" name="date-available" required>
-            </div>
-            <div class="col col-12 col-md-3" style="float: right">
-                <label for="addVehicle">Add vehicle</label>
-                <button type="button" id="add" onclick="Javascript:addRow()" name="addVehicle" value="Add"><i
-                        class="fas fa-plus" style="color: white;"></i></button>
-            </div>
-            <div class="container">
-                <table id="myTable" class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th>Trim</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div class="row">
+                <!-- Dynamic Input Fields -->
+                <div class="newElementId" id="newElementId">
 
-                    </tbody>
-                </table>
+                </div>
             </div>
-            <div class="col col-12 form-button">
-                <button class="btn btn-lg get-quote-button" type="submit">Get Quote!</button>
+        </div>
+        <div class="table-container">
+            <!-- Table -->
+            <div class="table-lbl-container" id="tableLblContainer">
+                
             </div>
-    </div>
+            <table id="myTable" class="table table-borderless table-sm">
+                <thead class="">
+                    <tr class="hidethis">
+                        <th class="table-headers">Year</th>
+                        <th class="table-headers">Make</th>
+                        <th class="table-headers">Model</th>
+                        <!-- <th class="table-headers">Trim</th> -->
+                        <th class="table-headers">Delete</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col col-12 form-button-container">
+            <button class="get-quote-button" type="submit">Get Quote!</button>
+        </div>
     </form>
 </div>
 </div>
